@@ -62,11 +62,11 @@
         </option>
         <option>
           <name>RTConfigPath</name>
-          <state>$TOOLKIT_DIR$\LIB\DLIB\dl430fn.h</state>
+          <state>$TOOLKIT_DIR$\LIB\DLIB\dl430xsfn.h</state>
         </option>
         <option>
           <name>RTLibraryPath</name>
-          <state>$TOOLKIT_DIR$\LIB\DLIB\dl430fn.r43</state>
+          <state>$TOOLKIT_DIR$\LIB\DLIB\dl430xsfn.r43</state>
         </option>
         <option>
           <name>Input variant</name>
@@ -109,11 +109,11 @@
         </option>
         <option>
           <name>GStackSize2</name>
-          <state>80</state>
+          <state>160</state>
         </option>
         <option>
           <name>GHeapSize2</name>
-          <state>80</state>
+          <state>160</state>
         </option>
         <option>
           <name>RadioDataModelType</name>
@@ -317,7 +317,7 @@
         </option>
         <option>
           <name>newCCIncludePaths</name>
-          <state>$PROJ_DIR$\user</state>
+          <state>$PROJ_DIR$\basic</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -372,7 +372,7 @@
         </option>
         <option>
           <name>IccLang</name>
-          <state>2</state>
+          <state>0</state>
         </option>
         <option>
           <name>IccCDialect</name>
@@ -640,7 +640,7 @@
         </option>
         <option>
           <name>OutputFile</name>
-          <state>WENDU.txt</state>
+          <state>CEWEN.txt</state>
         </option>
         <option>
           <name>OutputFormat</name>
@@ -706,7 +706,7 @@
         </option>
         <option>
           <name>XclFile</name>
-          <state>$TOOLKIT_DIR$\CONFIG\lnk430F149.xcl</state>
+          <state>$TOOLKIT_DIR$\CONFIG\lnk430F5438.xcl</state>
         </option>
         <option>
           <name>XclFileSlave</name>
@@ -834,7 +834,7 @@
         </option>
         <option>
           <name>ExtraOutputFile</name>
-          <state>WENDU.a43</state>
+          <state>CEWEN.a43</state>
         </option>
         <option>
           <name>ExtraOutputFormat</name>
@@ -987,19 +987,19 @@
         <option>
           <name>GRuntimeLibSelect</name>
           <version>0</version>
-          <state>1</state>
+          <state>4</state>
         </option>
         <option>
           <name>RTDescription</name>
-          <state>Use the normal configuration of the C/EC++ runtime library. No locale interface, C locale, no file descriptor support, no multibytes in printf and scanf, and no hex floats in strtod.</state>
+          <state>Use the legacy C runtime library.</state>
         </option>
         <option>
           <name>RTConfigPath</name>
-          <state>$TOOLKIT_DIR$\LIB\DLIB\dl430fn.h</state>
+          <state></state>
         </option>
         <option>
           <name>RTLibraryPath</name>
-          <state>$TOOLKIT_DIR$\LIB\DLIB\dl430fn.r43</state>
+          <state>$TOOLKIT_DIR$\LIB\CLIB\cl430f.r43</state>
         </option>
         <option>
           <name>Input variant</name>
@@ -1022,7 +1022,7 @@
         <option>
           <name>GRuntimeLibSelectSlave</name>
           <version>0</version>
-          <state>1</state>
+          <state>4</state>
         </option>
         <option>
           <name>GeneralEnableMisra</name>
@@ -1305,7 +1305,7 @@
         </option>
         <option>
           <name>IccLang</name>
-          <state>2</state>
+          <state>0</state>
         </option>
         <option>
           <name>IccCDialect</name>
@@ -1868,8 +1868,41 @@
       <data/>
     </settings>
   </configuration>
+  <group>
+    <name>BASIC</name>
+    <file>
+      <name>$PROJ_DIR$\basic\Clock.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\basic\Clock.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\basic\flash.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\basic\flash.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\basic\SCI.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\basic\SCI.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\basic\SPI.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\basic\SPI.h</name>
+    </file>
+  </group>
+  <group>
+    <name>USER</name>
+  </group>
   <file>
-    <name>$PROJ_DIR$\main.cpp</name>
+    <name>$PROJ_DIR$\main.c</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\main.h</name>
   </file>
 </project>
 

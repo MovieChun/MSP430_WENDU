@@ -16,7 +16,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define  FLL_FACTOR                 649                     // FLL_FACTOR: DCO±¶ÆµÏµÊý    
 
 
 //***************************************************************************//

@@ -3,7 +3,7 @@
 <Workspace>
   <ConfigDictionary>
     <CurrentConfigs>
-      <Project>WENDU/Debug</Project>
+      <Project>CEWEN/Debug</Project>
     </CurrentConfigs>
   </ConfigDictionary>
   <Desktop>
@@ -27,12 +27,13 @@
       <Wnd0>
         <Tabs>
           <Tab>
-            <Identity>TabID-8028-10009</Identity>
+            <Identity>TabID-20632-7395</Identity>
             <TabName>Workspace</TabName>
             <Factory>Workspace</Factory>
             <Session>
               <NodeDict>
-                <ExpandedNode>WENDU</ExpandedNode>
+                <ExpandedNode>CEWEN</ExpandedNode>
+                <ExpandedNode>CEWEN/BASIC</ExpandedNode>
               </NodeDict>
             </Session>
           </Tab>
@@ -42,7 +43,7 @@
       <Wnd1>
         <Tabs>
           <Tab>
-            <Identity>TabID-8091-10417</Identity>
+            <Identity>TabID-12330-7960</Identity>
             <TabName>Build</TabName>
             <Factory>Build</Factory>
             <Session/>
@@ -55,13 +56,61 @@
       <Pane>
         <Tab>
           <Factory>TextEditor</Factory>
-          <Filename>$WS_DIR$\main.cpp</Filename>
+          <Filename>$WS_DIR$\main.h</Filename>
           <XPos>0</XPos>
           <YPos>0</YPos>
-          <SelStart>170</SelStart>
-          <SelEnd>170</SelEnd>
+          <SelStart>93</SelStart>
+          <SelEnd>93</SelEnd>
         </Tab>
-        <ActiveTab>0</ActiveTab>
+        <Tab>
+          <Factory>TextEditor</Factory>
+          <Filename>$WS_DIR$\main.c</Filename>
+          <XPos>0</XPos>
+          <YPos>12</YPos>
+          <SelStart>283</SelStart>
+          <SelEnd>283</SelEnd>
+        </Tab>
+        <Tab>
+          <Factory>TextEditor</Factory>
+          <Filename>$WS_DIR$\basic\Clock.c</Filename>
+          <XPos>0</XPos>
+          <YPos>95</YPos>
+          <SelStart>6036</SelStart>
+          <SelEnd>6036</SelEnd>
+        </Tab>
+        <ActiveTab>2</ActiveTab>
+        <Tab>
+          <Factory>TextEditor</Factory>
+          <Filename>$WS_DIR$\basic\Clock.h</Filename>
+          <XPos>0</XPos>
+          <YPos>0</YPos>
+          <SelStart>77</SelStart>
+          <SelEnd>77</SelEnd>
+        </Tab>
+        <Tab>
+          <Factory>TextEditor</Factory>
+          <Filename>$WS_DIR$\basic\SCI.c</Filename>
+          <XPos>0</XPos>
+          <YPos>150</YPos>
+          <SelStart>1147</SelStart>
+          <SelEnd>1147</SelEnd>
+        </Tab>
+        <Tab>
+          <Factory>TextEditor</Factory>
+          <Filename>$WS_DIR$\basic\SPI.c</Filename>
+          <XPos>0</XPos>
+          <YPos>24</YPos>
+          <SelStart>969</SelStart>
+          <SelEnd>969</SelEnd>
+        </Tab>
+        <Tab>
+          <Factory>TextEditor</Factory>
+          <Filename>D:\Program Files (x86)\IAR Systems\Embedded Workbench 6.0 Evaluation\430\inc\msp430x54x.h</Filename>
+          <XPos>0</XPos>
+          <YPos>2934</YPos>
+          <SelStart>176294</SelStart>
+          <SelEnd>176301</SelEnd>
+        </Tab>
       </Pane>
       <ActivePane>0</ActivePane>
       <Sizes>
@@ -76,9 +125,9 @@
       <Top>
         <Row0>
           <Sizes>
-            <Toolbar-028ab5d0>
+            <Toolbar-0279b540>
               <key>iaridepm.enu1</key>
-            </Toolbar-028ab5d0>
+            </Toolbar-0279b540>
           </Sizes>
         </Row0>
       </Top>

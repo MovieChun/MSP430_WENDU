@@ -29,19 +29,10 @@
 #include "msp430x54x.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "Clock.h"
 
 
 // 主时钟设置选项，可选择内部DCO或外部高频晶振
-#define  INTERNAL_HF_OSC
-//#define  EXTERNAL_HF_OSC
-
-#ifdef   INTERNAL_HF_OSC
-#define  INTERNAL_HF_OSC
-#endif
-
-#ifdef   EXTERNAL_HF_OSC
-#define  EXTERNAL_HF_OSC
-#endif
 
 
 #define  FLL_FACTOR     749    // FLL_FACTOR: DCO倍频系数    
@@ -68,14 +59,14 @@ void Init_CLK(void)
   UCSCTL6   |= XT2DRIVE0 + XT2DRIVE1                      ; // XT2 驱动模式 24~32MHz                                            
   UCSCTL4   |= SELS_5 + SELM_5                            ; // SMCLK = MCLK = XT2
 }
-#endif
+
 
 //***************************************************************************//
 //                                                                           //
 //                 初始化主时钟: MCLK = XT1×(FLL_FACTOR+1)                  //
 //                                                                           //
 //***************************************************************************//
-#ifdef   INTERNAL_HF_OSC
+#else   
 void Init_CLK(void)
 {
   WDTCTL     = WDTPW + WDTHOLD                            ; // 关看门狗
@@ -99,21 +90,31 @@ void Init_CLK(void)
 #endif
 
 
+
+
 //***************************************************************************//
 //                                                                           //
-//                 主程序: 设置时钟并输出至P11.0~2                           //
+//  Init_TimerA0(void): 设置TimerA0                                              //
 //                                                                           //
 //***************************************************************************//
-/*
-int main( void )
+void Init_Timer0_A5(void)
 {
-  
-  WDTCTL = WDTPW + WDTHOLD                                ; // 关闭看门狗
-  Init_CLK()                                              ;
-  P11DS  = TACK + TMCK + TSMCK                            ; // ACK、MCK、SMCK输出至P11.0/1/2
-  P11SEL = TACK + TMCK + TSMCK                            ;
-  P11DIR = TACK + TMCK + TSMCK                            ;
-  MAIN_POWER_ON                                           ; // 指示时钟初始化成功
-  while(1)                                                ;
+  TA0CTL   = 0                                               // 复位Timer0_A5, 分频系数设置为1
+           | (1 << 2)                                        // 计数器清0
+           | (2 << 8)                                      ; // 计数时钟设为SMCLK                                                          ;
+  TA0CCR0  =  TIME                                         ; // SMCK=EX2=16MHz，设置计数器溢出时间为1ms  16位
+  TA0CCTL0 = 0                                               // 初始化捕获控制
+           | (1 << 4)                                      ; // 使能比较中断
+  TA0CTL  |= (1 << 4)                                      ; // 设置计数器为加计数，启动
+}
+
+
+/*
+#pragma vector=TIMER0_A0_VECTOR                             
+__interrupt void Timer0_A0 (void)
+{
+  P1OUT   ^= 0xF0                                         ; 
+  P9OUT   ^= 0x0F                                         ; 
+  TA0CCR0  = (16000) - 1                                  ;
 }
 */

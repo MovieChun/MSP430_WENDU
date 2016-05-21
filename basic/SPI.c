@@ -15,10 +15,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "SPI.h"
 
 
 #define  FLL_FACTOR     649                                 // FLL_FACTOR: DCO±¶ÆµÏµÊý    
-char  event, RXBuffer[2]                                  ;
+char  event_SPI, RXBuffer_SPI[2]                                  ;
 
 
 //***************************************************************************//

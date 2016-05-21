@@ -18,10 +18,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "SCI.h"
 
-
-#define  FLL_FACTOR     749                                          // FLL_FACTOR: DCO±¶ÆµÏµÊý    
-char  event, RXBuffer[2]                                           ;
+  
+char  event_SCI, RXBuffer_SCI[2]                                           ;
 
 //***************************************************************************//
 //                                                                           //
@@ -35,8 +35,8 @@ __interrupt void USCI_A1_ISR(void)
   {
   case 0:break                                                     ; // Vector 0 - no interrupt
   case 2:                                                            // Vector 2 - RXIFG
-      RXBuffer[0]      = UCA1RXBUF                                 ;
-      event           |= 0x01                                      ;
+      RXBuffer_SCI[0]      = UCA1RXBUF                                 ;
+      event_SCI           |= 0x01                                      ;
       break                                                        ;
   case 4:break                                                     ;  // Vector 4 - TXIFG
   default: break                                                   ;  
@@ -55,8 +55,8 @@ __interrupt void USCI_A3_ISR(void)
   {
   case 0:break                                                     ; // Vector 0 - no interrupt
   case 2:                                                            // Vector 2 - RXIFG
-      RXBuffer[0]      = UCA3RXBUF                                 ;
-      event           |= 0x01                                      ;
+      RXBuffer_SCI[0]      = UCA3RXBUF                                 ;
+      event_SCI           |= 0x01                                      ;
       break                                                        ;
   case 4:break                                                     ;  // Vector 4 - TXIFG
   default: break                                                   ;  
