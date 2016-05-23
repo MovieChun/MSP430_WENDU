@@ -6,21 +6,21 @@
   <configuration>
     <name>Debug</name>
     <outputs>
-      <file>$PROJ_DIR$\Debug\Obj\main.r43</file>
+      <file>$PROJ_DIR$\basic\Clock.h</file>
+      <file>$PROJ_DIR$\basic\Clock.c</file>
+      <file>$PROJ_DIR$\basic\SCI.c</file>
+      <file>$PROJ_DIR$\basic\flash.h</file>
+      <file>$PROJ_DIR$\basic\flash.c</file>
       <file>$PROJ_DIR$\basic\SCI.h</file>
+      <file>$PROJ_DIR$\basic\SPI.c</file>
+      <file>$PROJ_DIR$\basic\SPI.h</file>
+      <file>$PROJ_DIR$\main.c</file>
+      <file>$PROJ_DIR$\main.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.r43</file>
       <file>$PROJ_DIR$\Debug\Obj\CEWEN.pbd</file>
       <file>$PROJ_DIR$\Debug\Exe\CEWEN.d43</file>
       <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
-      <file>$PROJ_DIR$\basic\flash.c</file>
-      <file>$PROJ_DIR$\basic\SCI.c</file>
       <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
-      <file>$PROJ_DIR$\main.h</file>
-      <file>$TOOLKIT_DIR$\inc\io430x14x.h</file>
-      <file>$PROJ_DIR$\basic\flash.h</file>
-      <file>$TOOLKIT_DIR$\inc\io430.h</file>
-      <file>$PROJ_DIR$\basic\Clock.c</file>
-      <file>$PROJ_DIR$\basic\Clock.h</file>
-      <file>$PROJ_DIR$\main.c</file>
       <file>$TOOLKIT_DIR$\config\multiplier32_loc2.xcl</file>
       <file>$TOOLKIT_DIR$\lib\dlib\dl430xsfn.r43</file>
       <file>$TOOLKIT_DIR$\config\lnk430F5438.xcl</file>
@@ -32,8 +32,6 @@
       <file>$PROJ_DIR$\Debug\Obj\flash.r43</file>
       <file>$PROJ_DIR$\Debug\Obj\Clock.r43</file>
       <file>$PROJ_DIR$\Debug\Obj\SPI.r43</file>
-      <file>$PROJ_DIR$\basic\SPI.c</file>
-      <file>$PROJ_DIR$\basic\SPI.h</file>
       <file>$PROJ_DIR$\Debug\Obj\SPI.pbi</file>
       <file>$TOOLKIT_DIR$\inc\msp430x54x.h</file>
       <file>$TOOLKIT_DIR$\inc\in430.h</file>
@@ -51,43 +49,34 @@
       <file>$PROJ_DIR$\Debug\Exe\CEWEN.txt</file>
     </outputs>
     <file>
-      <name>$PROJ_DIR$\Debug\Obj\CEWEN.pbd</name>
-      <inputs>
-        <tool>
-          <name>BILINK</name>
-          <file> 22 20 28 19 4</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\Debug\Exe\CEWEN.d43</name>
-      <inputs>
+      <name>[ROOT_NODE]</name>
+      <outputs>
         <tool>
           <name>XLINK</name>
-          <file> 17 15 24 21 25 23 0 16</file>
+          <file> 40</file>
         </tool>
-      </inputs>
+      </outputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\basic\flash.c</name>
+      <name>$PROJ_DIR$\basic\Clock.c</name>
       <outputs>
         <tool>
           <name>ICC430</name>
-          <file> 23</file>
+          <file> 24</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 19</file>
+          <file> 22</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICC430</name>
-          <file> 29 30 7 31 32 33 35 18 36 34 37 40 38 39</file>
+          <file> 27 28 14 29 30 31 33 18 34 32 35 38 36 37 0</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 29 30 7 31 32 33 35 36 34 37 40 38 39</file>
+          <file> 27 28 14 29 30 31 33 34 32 35 38 36 37 0</file>
         </tool>
       </inputs>
     </file>
@@ -106,57 +95,34 @@
       <inputs>
         <tool>
           <name>ICC430</name>
-          <file> 29 30 7 31 32 33 35 18 36 34 37 40 38 39 41 1</file>
+          <file> 27 28 14 29 30 31 33 18 34 32 35 38 36 37 39 5</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 29 30 7 31 32 33 35 36 34 37 40 38 39 41 1</file>
+          <file> 27 28 14 29 30 31 33 34 32 35 38 36 37 39 5</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\basic\Clock.c</name>
+      <name>$PROJ_DIR$\basic\flash.c</name>
       <outputs>
         <tool>
           <name>ICC430</name>
-          <file> 24</file>
+          <file> 23</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 22</file>
+          <file> 19</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICC430</name>
-          <file> 29 30 7 31 32 33 35 18 36 34 37 40 38 39 13</file>
+          <file> 27 28 14 29 30 31 33 18 34 32 35 38 36 37</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 29 30 7 31 32 33 35 36 34 37 40 38 39 13</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\main.c</name>
-      <outputs>
-        <tool>
-          <name>ICC430</name>
-          <file> 0</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 4</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICC430</name>
-          <file> 29 30 7 8 31 32 33 35 18 36 34 37 40 38 39 13 10 1 27</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 29 30 7 8 31 32 33 35 36 34 37 40 38 39 13 10 1 27</file>
+          <file> 27 28 14 29 30 31 33 34 32 35 38 36 37</file>
         </tool>
       </inputs>
     </file>
@@ -169,35 +135,67 @@
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 28</file>
+          <file> 26</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICC430</name>
-          <file> 29 30 7 31 32 33 35 18 36 34 37 40 38 39 41 27</file>
+          <file> 27 28 14 29 30 31 33 18 34 32 35 38 36 37 39 7</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 29 30 7 31 32 33 35 36 34 37 40 38 39 41 27</file>
+          <file> 27 28 14 29 30 31 33 34 32 35 38 36 37 39 7</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>[ROOT_NODE]</name>
+      <name>$PROJ_DIR$\main.c</name>
       <outputs>
         <tool>
-          <name>XLINK</name>
-          <file> 42</file>
+          <name>ICC430</name>
+          <file> 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 13</file>
         </tool>
       </outputs>
+      <inputs>
+        <tool>
+          <name>ICC430</name>
+          <file> 27 28 14 9 29 30 31 33 18 34 32 35 38 36 37 0 3 5 7</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 27 28 14 9 29 30 31 33 34 32 35 38 36 37 0 3 5 7</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Obj\CEWEN.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 22 20 26 19 13</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Exe\CEWEN.d43</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 17 15 24 21 25 23 10 16</file>
+        </tool>
+      </inputs>
     </file>
     <file>
       <name>$PROJ_DIR$\Debug\Exe\CEWEN.txt</name>
       <inputs>
         <tool>
           <name>XLINK</name>
-          <file> 17 15 24 21 25 23 0 16</file>
+          <file> 17 15 24 21 25 23 10 16</file>
         </tool>
       </inputs>
     </file>

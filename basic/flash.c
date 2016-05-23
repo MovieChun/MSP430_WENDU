@@ -36,14 +36,9 @@ void FERASE(unsigned int address)
   FCTL3          = FWKEY + LOCK                           ;
 }
 
-//***************************************************************************//
-//                                                                           //
-//函数：void ERASE(unsigned int)                                             //
-//说明：擦除片内FLASH数据                                                    //
-//参数：address ——擦除起始地址                                             //
-//                                                                           //
-//***************************************************************************//
-void FWRITE(unsigned int address, unsigned char* data,unsigned int length)
+
+
+void Flash_write(unsigned int address, unsigned char* data,unsigned int length)
 {
   unsigned int   i                                        ;
   unsigned char* Wr_Addr                                  ;
@@ -58,6 +53,26 @@ void FWRITE(unsigned int address, unsigned char* data,unsigned int length)
   FCTL1   = FWKEY                                         ;
   FCTL3   = FWKEY + LOCK                                  ;  
 }
+
+/**********************************************************
+      FLASH 存储
+**********************************************************/
+void Flash_read(unsigned int address, unsigned char* data,unsigned int length)
+{
+  unsigned int   i                                        ;
+  unsigned char* Wr_Addr                                  ;
+  Wr_Addr =(unsigned char*)address                        ;
+  //FCTL1   = FWKEY + WRT                                   ; // Set WRT bit for write operation
+  //FCTL3   = FWKEY                                         ;
+  for(i=0;i<length;i++)
+  {
+    data[i] =  *Wr_Addr                                   ;
+    Wr_Addr++                                             ;
+  }
+  //FCTL1   = FWKEY                                         ;
+  //FCTL3   = FWKEY + LOCK                                  ;  
+}
+
 
 /*
 int main( void )

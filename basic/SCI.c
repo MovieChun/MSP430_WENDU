@@ -21,76 +21,40 @@
 #include "SCI.h"
 
   
-char  event_SCI, RXBuffer_SCI[2]                                           ;
-
-//***************************************************************************//
-//                                                                           //
-//  USB接收中断服务程序                                                      //
-//                                                                           //
-//***************************************************************************//
-#pragma vector=USCI_A1_VECTOR
-__interrupt void USCI_A1_ISR(void)
-{
-  switch(__even_in_range(UCA1IV,4))
-  {
-  case 0:break                                                     ; // Vector 0 - no interrupt
-  case 2:                                                            // Vector 2 - RXIFG
-      RXBuffer_SCI[0]      = UCA1RXBUF                                 ;
-      event_SCI           |= 0x01                                      ;
-      break                                                        ;
-  case 4:break                                                     ;  // Vector 4 - TXIFG
-  default: break                                                   ;  
-  }  
-}
+char  event_SCI, RXBuffer_SCI;
 
 //***************************************************************************//
 //                                                                           //
 //  RS232/485接收中断服务程序                                                //
 //                                                                           //
 //***************************************************************************//
-#pragma vector=USCI_A3_VECTOR
+/*#pragma vector=USCI_A3_VECTOR
 __interrupt void USCI_A3_ISR(void)
 {
   switch(__even_in_range(UCA3IV,4))
   {
   case 0:break                                                     ; // Vector 0 - no interrupt
   case 2:                                                            // Vector 2 - RXIFG
-      RXBuffer_SCI[0]      = UCA3RXBUF                                 ;
+      RXBuffer_SCI      = UCA3RXBUF                                 ;
       event_SCI           |= 0x01                                      ;
       break                                                        ;
   case 4:break                                                     ;  // Vector 4 - TXIFG
   default: break                                                   ;  
   }  
 }
-
-//***************************************************************************//
-//                                                                           //
-//  Init_UART(void): 初始化USB端口                                           //
-//                                                                           //
-//***************************************************************************//
-void Init_UART(void)
-{ 
-//  USB_PORT_SEL   |= TXD_U + RXD_U                                  ; // 选择引脚功能
-//  USB_PORT_DIR   |= TXD_U                                          ; // 选择引脚功能
-  UCA1CTL1        = UCSWRST                                        ; // 状态机复位
-  UCA1CTL1       |= UCSSEL_1                                       ; // CLK = ACLK
-  UCA1BR0         = 0x03                                           ; // 32kHz/9600=3.41 
-  UCA1BR1         = 0x00                                           ; 
-  UCA1MCTL        = UCBRS_3 + UCBRF_0                              ; // UCBRSx=3, UCBRFx=0
-  UCA1CTL1       &= ~UCSWRST                                       ; // 启动状态机
-  UCA1IE         |= UCRXIE                                         ; // 允许接收中断
-}
-
+*/
 
 //***************************************************************************//
 //                                                                           //
 //  Init_RSUART(void): 初始化RS232/485端口                                   //
-//                                                                           //
+//       能用                                                                    //
+//  使用低频时钟（外部低频晶振），不采样，（正确率低），无奇偶校验  9600
 //***************************************************************************//
+
 void Init_RSUART(void)
 { 
-//  RS_PORT_SEL    |= TXD + RXD                                      ; // 选择引脚功能
-//  RS_PORT_DIR    |= TXD                                            ; // 选择引脚功能
+  RS_PORT_SEL    |= TXD + RXD                                      ; // 选择引脚功能
+  RS_PORT_DIR    |= TXD                                            ; // 选择引脚功能
   UCA3CTL1        = UCSWRST                                        ; // 状态机复位
   UCA3CTL1       |= UCSSEL_1                                       ; // CLK = ACLK
   UCA3BR0         = 0x03                                           ; // 32kHz/9600=3.41 
@@ -98,24 +62,7 @@ void Init_RSUART(void)
   UCA3MCTL        = UCBRS_3 + UCBRF_0                              ; // UCBRSx=3, UCBRFx=0
   UCA3CTL1       &= ~UCSWRST                                       ; // 启动状态机
   UCA3IE         |= UCRXIE                                         ; // 允许接收中断
-//  RS485_IN                                                         ;
-}
 
-//***************************************************************************//
-//                                                                           //
-//  UTX_PROC(void): USB端口发送程序                                          //
-//                                                                           //
-//***************************************************************************//
-void UTX_PROC(char *tx_buf)
-{
-  unsigned char i,length                                           ;
-  length = strlen(tx_buf)                                          ;
-  for(i=0;i<length;i++)
-  {
-    UCA1TXBUF = *tx_buf++                                          ; 
-//    __delay_cycles(5000)                                         ;
-    while (!(UCA1IFG&UCTXIFG))                                     ; 
-  }
 }
 
 //***************************************************************************//
@@ -134,22 +81,33 @@ void RS232TX_PROC(char *tx_buf)
   }
 }
 
-//***************************************************************************//
-//                                                                           //
-//  RS485TX_PROC(void): RS485端口发送程序                                    //
-//                                                                           //
-//***************************************************************************//
-void RS485TX_PROC(char *tx_buf)
+void RS232TX_PROC2(char *tx_buf,char length)
 {
-  unsigned char i,length                                           ;
-  length = strlen(tx_buf)                                          ;
-//  RS485_OUT                                                        ;
+  unsigned char i ;
   for(i=0;i<length;i++)
   {
     UCA3TXBUF = *tx_buf++                                          ; 
     while (!(UCA3IFG&UCTXIFG))                                     ; 
   }
-  __delay_cycles(100000)                                           ;
-//  RS485_IN                                                         ;
 }
 
+//***************************************************************************//
+//                                                                           //
+//  Init_RSUART(void): 初始化RS232/485端口                                   //
+//        待改                                                                   //
+//  
+//***************************************************************************//
+/*
+void Init_RSUART(void)
+{ 
+  RS_PORT_SEL    |= TXD + RXD                                      ; // 选择引脚功能
+  RS_PORT_DIR    |= TXD                                            ; // 选择引脚功能
+  UCA3CTL1        = UCSWRST                                        ; // 状态机复位
+  UCA3CTL1       |= UCSSEL_2                                       ; // CLK = smclk
+  UCA3BR0         = 0x68                                           ; // 16mHz/9600/16=0x68 
+  UCA3BR1         = 0x00                                           ; 
+  UCA3MCTL        = UCBRS_0 + UCBRF_3                              ; // UCBRSx=3, UCBRFx=0
+  //UCA3CTL1       &= ~UCSWRST                                       ; // 启动状态机
+  //UCA3CTL1       |= UCSWRST                                       ; // 启动状态机
+  UCA3IE         |= UCRXIE                                         ; // 允许接收中断
+}*/
