@@ -13,7 +13,7 @@ int main( void )
   WDTCTL = WDTPW + WDTHOLD;
   Init_CLK();
   Init_Timer0_A5();
-  Init_RSUART();
+  UART_init_H();
   _EINT(); 
   P4DIR = 0XFF;
   P4OUT = 0Xff;
@@ -23,17 +23,16 @@ int main( void )
     if(times > 1000){
         times = 0;
         P4OUT ^= 0xff; 
-        RS232TX_PROC("\nhallo\n");
-        RS232TX_PROC2((char*)Cstring,5);
+        UART_send("\nhallo\n");
+        UART_send_num((char*)Cstring,5);
     }
     if(event_SCI != 0){
        event_SCI = 0;
        Cstring[Sflag++] = RXBuffer_SCI;
        if(Sflag > 4){
          Sflag = 0;
-         FERASE(SAVE_ADD);
          Flash_write(SAVE_ADD, Cstring,5);
-         RS232TX_PROC("\nsave\n");
+         UART_send("\nsave\n");
        }
     }
   }

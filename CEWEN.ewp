@@ -1877,10 +1877,22 @@
       <name>$PROJ_DIR$\basic\Clock.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\basic\EXIT.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\basic\EXIT.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\basic\flash.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\basic\flash.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\basic\IIC.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\basic\IIC.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\basic\SCI.c</name>
