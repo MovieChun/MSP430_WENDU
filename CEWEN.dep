@@ -2,32 +2,35 @@
 
 <project>
   <fileVersion>2</fileVersion>
-  <fileChecksum>1602202490</fileChecksum>
+  <fileChecksum>2394214368</fileChecksum>
   <configuration>
     <name>Debug</name>
     <outputs>
       <file>$PROJ_DIR$\basic\Clock.h</file>
       <file>$PROJ_DIR$\basic\Clock.c</file>
-      <file>$PROJ_DIR$\basic\IIC.c</file>
-      <file>$PROJ_DIR$\basic\flash.h</file>
       <file>$PROJ_DIR$\basic\flash.c</file>
+      <file>$PROJ_DIR$\basic\EXIT.h</file>
+      <file>$PROJ_DIR$\basic\EXIT.c</file>
+      <file>$PROJ_DIR$\basic\flash.h</file>
+      <file>$PROJ_DIR$\basic\IIC.c</file>
       <file>$PROJ_DIR$\basic\IIC.h</file>
       <file>$PROJ_DIR$\basic\SCI.c</file>
       <file>$PROJ_DIR$\basic\SCI.h</file>
       <file>$PROJ_DIR$\basic\SPI.c</file>
       <file>$PROJ_DIR$\basic\SPI.h</file>
+      <file>$PROJ_DIR$\user\mlx90614.c</file>
       <file>$PROJ_DIR$\main.c</file>
       <file>$PROJ_DIR$\main.h</file>
       <file>$PROJ_DIR$\Debug\Obj\main.r43</file>
       <file>$PROJ_DIR$\Debug\Obj\CEWEN.pbd</file>
       <file>$PROJ_DIR$\Debug\Exe\CEWEN.d43</file>
+      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
       <file>$TOOLKIT_DIR$\config\multiplier32_loc2.xcl</file>
       <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
       <file>$TOOLKIT_DIR$\lib\dlib\dl430xsfn.r43</file>
-      <file>$TOOLKIT_DIR$\lib\dlib\dl430xsfn.h</file>
       <file>$PROJ_DIR$\Debug\Obj\flash.pbi</file>
       <file>$TOOLKIT_DIR$\config\lnk430F5438.xcl</file>
+      <file>$TOOLKIT_DIR$\lib\dlib\dl430xsfn.h</file>
       <file>$PROJ_DIR$\Debug\Obj\SCI.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\SCI.r43</file>
       <file>$PROJ_DIR$\Debug\Obj\Clock.pbi</file>
@@ -53,52 +56,39 @@
       <file>$PROJ_DIR$\Debug\Obj\IIC.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\EXIT.r43</file>
       <file>$PROJ_DIR$\Debug\Obj\EXIT.pbi</file>
-      <file>$PROJ_DIR$\basic\EXIT.c</file>
-      <file>$PROJ_DIR$\basic\EXIT.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\mlx90614.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\mlx90614.pbi</file>
+      <file>$PROJ_DIR$\user\mlx90614.h</file>
     </outputs>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 45</file>
+        </tool>
+      </outputs>
+    </file>
     <file>
       <name>$PROJ_DIR$\basic\Clock.c</name>
       <outputs>
         <tool>
           <name>ICC430</name>
-          <file> 26</file>
+          <file> 29</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 24</file>
+          <file> 27</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICC430</name>
-          <file> 29 30 17 31 32 33 35 19 36 34 37 40 38 39 0</file>
+          <file> 32 33 18 34 35 36 38 24 39 37 40 43 41 42 0</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 29 30 17 31 32 33 35 36 34 37 40 38 39 0</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\basic\IIC.c</name>
-      <outputs>
-        <tool>
-          <name>ICC430</name>
-          <file> 43</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 44</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICC430</name>
-          <file> 29 30 17 31 32 33 35 19 36 34 37 40 38 39 5</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 29 30 17 31 32 33 35 36 34 37 40 38 39 5</file>
+          <file> 32 33 18 34 35 36 38 39 37 40 43 41 42 0</file>
         </tool>
       </inputs>
     </file>
@@ -107,30 +97,7 @@
       <outputs>
         <tool>
           <name>ICC430</name>
-          <file> 25</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 20</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICC430</name>
-          <file> 29 30 17 31 32 33 35 19 36 34 37 40 38 39 3</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 29 30 17 31 32 33 35 36 34 37 40 38 39 3</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\basic\SCI.c</name>
-      <outputs>
-        <tool>
-          <name>ICC430</name>
-          <file> 23</file>
+          <file> 28</file>
         </tool>
         <tool>
           <name>BICOMP</name>
@@ -140,11 +107,80 @@
       <inputs>
         <tool>
           <name>ICC430</name>
-          <file> 29 30 17 31 32 33 35 19 36 34 37 40 38 39 41 7</file>
+          <file> 32 33 18 34 35 36 38 24 39 37 40 43 41 42 5</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 29 30 17 31 32 33 35 36 34 37 40 38 39 41 7</file>
+          <file> 32 33 18 34 35 36 38 39 37 40 43 41 42 5</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\basic\EXIT.c</name>
+      <outputs>
+        <tool>
+          <name>ICC430</name>
+          <file> 48</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 49</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC430</name>
+          <file> 32 33 18 34 35 36 38 24 39 37 40 43 41 42 3</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 32 33 18 34 35 36 38 39 37 40 43 41 42 3</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\basic\IIC.c</name>
+      <outputs>
+        <tool>
+          <name>ICC430</name>
+          <file> 46</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 47</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC430</name>
+          <file> 32 33 18 34 35 36 38 24 39 37 40 43 41 42 7</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 32 33 18 34 35 36 38 39 37 40 43 41 42 7</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\basic\SCI.c</name>
+      <outputs>
+        <tool>
+          <name>ICC430</name>
+          <file> 26</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 25</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC430</name>
+          <file> 32 33 18 34 35 36 38 24 39 37 40 43 41 42 44 9</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 32 33 18 34 35 36 38 39 37 40 43 41 42 44 9</file>
         </tool>
       </inputs>
     </file>
@@ -153,21 +189,44 @@
       <outputs>
         <tool>
           <name>ICC430</name>
-          <file> 27</file>
+          <file> 30</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 28</file>
+          <file> 31</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICC430</name>
-          <file> 29 30 17 31 32 33 35 19 36 34 37 40 38 39 41 9</file>
+          <file> 32 33 18 34 35 36 38 24 39 37 40 43 41 42 44 11</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 29 30 17 31 32 33 35 36 34 37 40 38 39 41 9</file>
+          <file> 32 33 18 34 35 36 38 39 37 40 43 41 42 44 11</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\user\mlx90614.c</name>
+      <outputs>
+        <tool>
+          <name>ICC430</name>
+          <file> 50</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 51</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC430</name>
+          <file> 32 33 18 34 35 36 38 24 39 37 40 43 41 42 7 52</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 32 33 18 34 35 36 38 39 37 40 43 41 42 7 52</file>
         </tool>
       </inputs>
     </file>
@@ -176,21 +235,21 @@
       <outputs>
         <tool>
           <name>ICC430</name>
-          <file> 12</file>
+          <file> 15</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 16</file>
+          <file> 20</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICC430</name>
-          <file> 29 30 17 11 31 32 33 35 19 36 34 37 40 38 39 0 3 7 9</file>
+          <file> 32 33 18 14 34 35 36 38 24 39 37 40 43 41 42 0 5 9 11 7 52</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 29 30 17 11 31 32 33 35 36 34 37 40 38 39 0 3 7 9</file>
+          <file> 32 33 18 14 34 35 36 38 39 37 40 43 41 42 0 5 9 11 7 52</file>
         </tool>
       </inputs>
     </file>
@@ -199,7 +258,7 @@
       <inputs>
         <tool>
           <name>BILINK</name>
-          <file> 24 46 44 22 28 20 16</file>
+          <file> 27 49 47 25 31 22 20 51</file>
         </tool>
       </inputs>
     </file>
@@ -208,7 +267,7 @@
       <inputs>
         <tool>
           <name>XLINK</name>
-          <file> 21 15 26 23 27 25 12 18</file>
+          <file> 23 19 29 26 30 28 15 21</file>
         </tool>
       </inputs>
     </file>
@@ -217,39 +276,7 @@
       <inputs>
         <tool>
           <name>XLINK</name>
-          <file> 21 15 26 45 43 23 27 25 12 18</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>[ROOT_NODE]</name>
-      <outputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 42</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\basic\EXIT.c</name>
-      <outputs>
-        <tool>
-          <name>ICC430</name>
-          <file> 45</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 46</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICC430</name>
-          <file> 29 30 17 31 32 33 35 19 36 34 37 40 38 39 48</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 29 30 17 31 32 33 35 36 34 37 40 38 39 48</file>
+          <file> 23 19 29 48 46 26 30 28 15 50 21</file>
         </tool>
       </inputs>
     </file>

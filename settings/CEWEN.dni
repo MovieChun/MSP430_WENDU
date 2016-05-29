@@ -8,6 +8,12 @@ UseTrigger=1
 TriggerName=main
 LimitSize=0
 ByteLimit=50
+[DebugChecksum]
+Checksum=-2036610302
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
 [InterruptLog]
 LogEnabled=0
 SumEnabled=0

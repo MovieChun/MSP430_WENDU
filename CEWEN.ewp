@@ -318,6 +318,7 @@
         <option>
           <name>newCCIncludePaths</name>
           <state>$PROJ_DIR$\basic</state>
+          <state>$PROJ_DIR$\user</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1909,6 +1910,9 @@
   </group>
   <group>
     <name>USER</name>
+    <file>
+      <name>$PROJ_DIR$\user\mlx90614.c</name>
+    </file>
   </group>
   <file>
     <name>$PROJ_DIR$\main.c</name>

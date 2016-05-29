@@ -6,6 +6,7 @@
 int times = 0;
 unsigned char Cstring[5] = "1234";
 unsigned char Sflag = 0;
+unsigned int Te;
 
 int main( void )
 {
@@ -14,24 +15,28 @@ int main( void )
   Init_CLK();
   Init_Timer0_A5();
   UART_init_H();
+  IIC_INIT();
   _EINT(); 
   P4DIR = 0XFF;
   P4OUT = 0Xff;
-  //Flash_write(SAVE_ADD, Cstring,5);
-  Flash_read(SAVE_ADD, Cstring,5);
+  UART_send("begin\n");
   while(1){
     if(times > 1000){
         times = 0;
         P4OUT ^= 0xff; 
         UART_send("\nhallo\n");
-        UART_send_num((char*)Cstring,5);
+        Te = Read_in();
+        UART_send_num(Te);
+        UART_send("\n");
+    
     }
+   
     if(event_SCI != 0){
        event_SCI = 0;
        Cstring[Sflag++] = RXBuffer_SCI;
        if(Sflag > 4){
          Sflag = 0;
-         Flash_write(SAVE_ADD, Cstring,5);
+        
          UART_send("\nsave\n");
        }
     }

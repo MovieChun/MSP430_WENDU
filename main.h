@@ -8,7 +8,9 @@
 #include "flash.h"
 #include "SCI.h"
 #include "SPI.h"
+#include "IIC.h"
 
+#include "mlx90614.h"
 
 
 

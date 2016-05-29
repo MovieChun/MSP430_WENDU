@@ -92,13 +92,13 @@ void UART_send(char *tx_buf)
 
 /***************************************************************************
                                                                            
-函数：UART_send_num                                                         
+函数：UART_send2                                                        
 说明：串口发送数组
 参数：tx_buf -- 数组名   num -- 数组长度
                                                                           
 ***************************************************************************/
 
-void UART_send_num(char *tx_buf,char num)
+void UART_send2(char *tx_buf,char num)
 {
   unsigned char i ;
   for(i=0;i<num;i++)
@@ -107,6 +107,33 @@ void UART_send_num(char *tx_buf,char num)
     while (!(UCA3IFG&UCTXIFG))                                     ; 
   }
 }
+
+
+/***************************************************************************
+                                                                           
+函数：UART_send_num                                                         
+说明：串口发送数组
+参数：tx_buf -- 数组名   num -- 数组长度
+                                                                          
+***************************************************************************/
+
+void UART_send_num(unsigned int num)
+{
+  unsigned char i;
+  char n[5];
+ 
+ 
+
+  for(i = 0;i < 5;i++){
+    n[4-i] = num % 10 + '0';
+    num /= 10;
+  }
+  UART_send2(n,5);
+  
+}
+
+
+
 
 /***************************************************************************
     中断接收函数
