@@ -4,9 +4,9 @@
 
 
 int times = 0;
-unsigned char Cstring[5] = "1234";
-unsigned char Sflag = 0;
-unsigned int Te;
+
+float Tdata;
+unsigned int data;
 
 int main( void )
 {
@@ -14,32 +14,50 @@ int main( void )
   WDTCTL = WDTPW + WDTHOLD;
   Init_CLK();
   Init_Timer0_A5();
-  UART_init_H();
-  IIC_INIT();
+  SCI_init();
+  
+  mlx90614_INIT();
   _EINT(); 
+  
   P4DIR = 0XFF;
   P4OUT = 0Xff;
-  UART_send("begin\n");
+  
   while(1){
     if(times > 1000){
         times = 0;
         P4OUT ^= 0xff; 
-        UART_send("\nhallo\n");
-        Te = Read_in();
-        UART_send_num(Te);
-        UART_send("\n");
+        
+        SCI_send("\nTA:");
+        MLX_ReadT(TA ,&Tdata);
+        SCI_send_float(Tdata);
+        
+        SCI_send("\nTout1:");
+        MLX_ReadT(TOBJ1,&Tdata);
+        SCI_send_float(Tdata);
+        
+        SCI_send("\nTout2:");
+        MLX_ReadT(TOBJ2,&Tdata);
+        SCI_send_float(Tdata);
+        
+        SCI_send("\nMAX:");
+        MLX_ReadT(TOMAX,&Tdata);
+        SCI_send_float(Tdata);  
+        
+        SCI_send("\nMIN:");
+        MLX_Read(TOMIN,&data);
+        SCI_send_num(data); 
+        
+        SCI_send("\nRANG:");
+        MLX_ReadT(TOMIN,&Tdata);
+        SCI_send_float(Tdata); 
+        
+  
+        
+        MLX_sleep();   //起不到休眠作用？
+        SCI_send("ok\n");
     
     }
    
-    if(event_SCI != 0){
-       event_SCI = 0;
-       Cstring[Sflag++] = RXBuffer_SCI;
-       if(Sflag > 4){
-         Sflag = 0;
-        
-         UART_send("\nsave\n");
-       }
-    }
   }
   
 }
@@ -50,7 +68,7 @@ int main( void )
 __interrupt void Timer0_A0 (void)
 {
   
-  if(times <4000)times++;
+  if(times <5000)times++;
 
 }
 

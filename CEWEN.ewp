@@ -1000,7 +1000,7 @@
         </option>
         <option>
           <name>RTLibraryPath</name>
-          <state>$TOOLKIT_DIR$\LIB\CLIB\cl430f.r43</state>
+          <state>$TOOLKIT_DIR$\LIB\CLIB\cl430xsf.r43</state>
         </option>
         <option>
           <name>Input variant</name>
@@ -1035,7 +1035,7 @@
         </option>
         <option>
           <name>OGChipSelectMenu</name>
-          <state>MSP430F149	MSP430F149</state>
+          <state>MSP430F5438	MSP430F5438</state>
         </option>
         <option>
           <name>GStackHeapOverride</name>
@@ -1043,11 +1043,11 @@
         </option>
         <option>
           <name>GStackSize2</name>
-          <state>80</state>
+          <state>160</state>
         </option>
         <option>
           <name>GHeapSize2</name>
-          <state>80</state>
+          <state>160</state>
         </option>
         <option>
           <name>RadioDataModelType</name>
@@ -1055,7 +1055,7 @@
         </option>
         <option>
           <name>GHeap20Size</name>
-          <state>###Uninitialized###</state>
+          <state>80</state>
         </option>
         <option>
           <name>GeneralMisraRules98</name>
@@ -1251,7 +1251,8 @@
         </option>
         <option>
           <name>newCCIncludePaths</name>
-          <state></state>
+          <state>$PROJ_DIR$\basic</state>
+          <state>$PROJ_DIR$\user</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1570,11 +1571,11 @@
         <debug>0</debug>
         <option>
           <name>XOutOverride</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>OutputFile</name>
-          <state>templproj.txt</state>
+          <state>CEWEN.txt</state>
         </option>
         <option>
           <name>OutputFormat</name>
@@ -1640,7 +1641,7 @@
         </option>
         <option>
           <name>XclFile</name>
-          <state>$TOOLKIT_DIR$\CONFIG\lnk430F149.xcl</state>
+          <state>$TOOLKIT_DIR$\CONFIG\lnk430F5438.xcl</state>
         </option>
         <option>
           <name>XclFileSlave</name>
@@ -1768,7 +1769,7 @@
         </option>
         <option>
           <name>ExtraOutputFile</name>
-          <state>templproj.a43</state>
+          <state>CEWEN.a43</state>
         </option>
         <option>
           <name>ExtraOutputFormat</name>
@@ -1906,6 +1907,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\basic\SPI.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\basic\uart.c</name>
     </file>
   </group>
   <group>

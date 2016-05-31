@@ -9,6 +9,7 @@
 #include "SCI.h"
 #include "SPI.h"
 #include "IIC.h"
+#include "uart.h"
 
 #include "mlx90614.h"
 
