@@ -13,7 +13,7 @@
 #ifndef _clock_h_
 #define _clock_h_
 
-#define  TIME   (16000 - 1)         //1ms定时  主频为16MHZ时
+#define  TIME   (125 - 1)         //1ms定时  主频为16MHZ时
 
 
 // 主时钟设置选项，可选择内部DCO或外部高频晶振

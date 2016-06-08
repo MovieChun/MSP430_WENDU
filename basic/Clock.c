@@ -32,9 +32,12 @@ void Init_CLK(void)
 {
   WDTCTL     = WDTPW + WDTHOLD                            ; // 关看门狗
   P5SEL     |= 0x0C                                       ; // 端口功能选择振荡器 P5.2和P5.3选择为晶振XT2输入
-  UCSCTL6   &= ~XT2OFF                                    ; // 振荡器使能
+  P7SEL     |= 0x03                                       ; // 端口选择外部低频晶振XT1
+  UCSCTL6   &= ~(XT2OFF + XT1OFF)                         ; // 振荡器使能
+  UCSCTL6   |= XCAP_3                                     ; // 设置内部负载电容
   UCSCTL3   |= SELREF_2                                   ; // FLLref = REFO
-  UCSCTL4   |= SELA_2                                     ; // ACLK=REFO,SMCLK=DCO,MCLK=DCO
+  UCSCTL4   |= SELA_0                                     ; // ACLK=XT1,SMCLK=DCO,MCLK=DCO
+  UCSCTL5   |= DIVA0 + DIVA2                              ;  //ACLK32分频  1K
   do
   {
     UCSCTL7 &= ~(XT2OFFG + XT1LFOFFG + XT1HFOFFG + DCOFFG); // 清除 XT2,XT1,DCO 错误标志                                                          
@@ -82,14 +85,24 @@ void Init_CLK(void)
 //                                                                           //
 //***************************************************************************//
 void Init_Timer0_A5(void)
-{
-  TA0CTL   = 0                                               // 复位Timer0_A5, 分频系数设置为1
+{ 
+  /*TA0CTL   = 0                                               // 复位Timer0_A5, 分频系数设置为1
            | (1 << 2)                                        // 计数器清0
-           | (2 << 8)                                      ; // 计数时钟设为SMCLK                                                          ;
+           | (1 << 8)                                      ; // 计数时钟设为ACLK                                                          ;
   TA0CCR0  =  TIME                                         ; // SMCK=EX2=16MHz，设置计数器溢出时间为1ms  16位
   TA0CCTL0 = 0                                               // 初始化捕获控制
            | (1 << 4)                                      ; // 使能比较中断
-  TA0CTL  |= (1 << 4)                                      ; // 设置计数器为加计数，启动
+  TA0CTL  |= (1 << 4)                                      ; // 设置计数器为加计数，启动*/
+  
+  TA0CTL   = TASSEL0 + ID1 + ID0 + TACLR           ; // 复位Timer0_A5, 分频系数设置为8
+                                                          // 计数器清0
+                                                          // 计数时钟设为ACLK                                                          ;
+  TA0CCR0  =  TIME                                         ; // SMCK=EX2=16MHz，设置计数器溢出时间为1ms  16位
+  TA0CCTL0 = 0                                               // 初始化捕获控制
+           | (1 << 4)                                      ; // 使能比较中断
+  TA0CTL  |= MC0                                           ; // 设置计数器为加计数，启动*/
+  
+  
 }
 
 

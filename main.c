@@ -23,11 +23,12 @@ int main( void )
   P4OUT = 0Xff;
   
   while(1){
-    if(times > 1000){
+    //if(times > 1)
+    {
         times = 0;
         P4OUT ^= 0xff; 
         
-        SCI_send("\nTA:");
+        /*SCI_send("\nTA:");
         MLX_ReadT(TA ,&Tdata);
         SCI_send_float(Tdata);
         
@@ -51,10 +52,12 @@ int main( void )
         MLX_ReadT(TOMIN,&Tdata);
         SCI_send_float(Tdata); 
         
-  
-        
-        MLX_sleep();   //起不到休眠作用？
-        SCI_send("ok\n");
+        __bis_SR_register(LPM3_bits);             // Enter LPM3
+        //__no_operation();
+        */
+        //MLX_sleep();   //起不到休眠作用？
+       // SCI_send("ok\n");
+        __bis_SR_register(LPM4_bits);             // Enter LPM3
     
     }
    
@@ -69,7 +72,7 @@ __interrupt void Timer0_A0 (void)
 {
   
   if(times <5000)times++;
-
+  __bic_SR_register_on_exit(LPM0_bits);   // Exit active CPU
 }
 
 
