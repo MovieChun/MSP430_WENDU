@@ -1,7 +1,7 @@
 /**********************************************************************
       文件名：sci.h
       说明  ：串口驱动
-              波特率：9600
+              波特率：115200
               中断接收
               引脚 ：TXD -> P10.4 -> Pin80
                      RXD -> P10.5 -> Pin81
@@ -21,9 +21,9 @@
 #define UART_TXD   BIT4
 #define UART_RXD   BIT5
 
-extern char event_SCI, RXBuffer_SCI;              //获取标志位，接收的数据
-extern void UART_init_L(void);                     //串口初始化  低速省电模式
-extern void UART_init_H(void);                     //串口初始化  高速精确模式
+
+
+extern void UART_init(void);                       //串口初始化  高速精确模式
 extern void UART_send(char *tx_buf);               //发送字符串函数
 extern void UART_send2(char *tx_buf,char num);     //发送数组函数
 extern void UART_send_num(unsigned int num);       //发送数组函数

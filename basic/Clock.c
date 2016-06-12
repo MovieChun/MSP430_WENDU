@@ -37,7 +37,7 @@ void Init_CLK(void)
   UCSCTL6   |= XCAP_3                                     ; // 设置内部负载电容
   UCSCTL3   |= SELREF_2                                   ; // FLLref = REFO
   UCSCTL4   |= SELA_0                                     ; // ACLK=XT1,SMCLK=DCO,MCLK=DCO
-  UCSCTL5   |= DIVA0 + DIVA2                              ;  //ACLK32分频  1K
+  UCSCTL5   |= DIVA2                                      ;  //ACLK16分频  0.5K
   do
   {
     UCSCTL7 &= ~(XT2OFFG + XT1LFOFFG + XT1HFOFFG + DCOFFG); // 清除 XT2,XT1,DCO 错误标志                                                          
@@ -81,40 +81,61 @@ void Init_CLK(void)
 
 //***************************************************************************//
 //                                                                           //
-//  Init_TimerA0(void): 设置TimerA0                                              //
+//  Init_TimerA0(void): 设置TimerA0                                          //
 //                                                                           //
 //***************************************************************************//
 void Init_Timer0_A5(void)
-{ 
-  /*TA0CTL   = 0                                               // 复位Timer0_A5, 分频系数设置为1
-           | (1 << 2)                                        // 计数器清0
-           | (1 << 8)                                      ; // 计数时钟设为ACLK                                                          ;
-  TA0CCR0  =  TIME                                         ; // SMCK=EX2=16MHz，设置计数器溢出时间为1ms  16位
-  TA0CCTL0 = 0                                               // 初始化捕获控制
-           | (1 << 4)                                      ; // 使能比较中断
-  TA0CTL  |= (1 << 4)                                      ; // 设置计数器为加计数，启动*/
-  
-  TA0CTL   = TASSEL0 + ID1 + ID0 + TACLR           ; // 复位Timer0_A5, 分频系数设置为8
+{  
+  TA0CTL   = TASSEL0 + ID1 + ID0 + TACLR                   ; // 复位Timer0_A5, 分频系数设置为8
                                                           // 计数器清0
                                                           // 计数时钟设为ACLK                                                          ;
   TA0CCR0  =  TIME                                         ; // SMCK=EX2=16MHz，设置计数器溢出时间为1ms  16位
   TA0CCTL0 = 0                                               // 初始化捕获控制
            | (1 << 4)                                      ; // 使能比较中断
   TA0CTL  |= MC0                                           ; // 设置计数器为加计数，启动*/
-  
-  
+   
+}
+
+//***************************************************************************//
+//                                                                           //
+//  Init_TimerA1(void): 设置TimerA1                                          //
+//  1MS的精确定时                                                                         //
+//***************************************************************************//
+unsigned int delay_ms = 0;
+char delay_flag = 0;
+
+
+void Init_Timer1_A3(void)
+{  
+  TA1CTL   = TASSEL0 + TACLR                              ; // 复位Timer1_A3, 分频系数设置为1
+                                                             // 计数器清0
+                                                             // 计数时钟设为ACLK                                                          ;
+  TA1CCR0  =  1                                            ; // ACLK=32K，设置计数器溢出时间为1ms  16位
+  TA1CCTL0 = 0                                               // 初始化捕获控制
+           | (1 << 4)                                      ; // 使能比较中断
+  TA1CTL  |= MC0                                           ; // 设置计数器为加计数，启动*/
+   
 }
 
 
-/*********************************************
-中断函数写到 main.c
-********************************************/
-/*
-#pragma vector=TIMER0_A0_VECTOR                             
-__interrupt void Timer0_A0 (void)
+
+char* TIM1_delay(unsigned int ms){
+    delay_ms = ms;
+    delay_flag = 1;
+    TA1CTL  |= MC0; // 启动定时器
+    return &delay_flag;
+}
+
+
+#pragma vector=TIMER1_A0_VECTOR                             
+__interrupt void Timer1_A0 (void)
 {
-  P1OUT   ^= 0xF0                                         ; 
-  P9OUT   ^= 0x0F                                         ; 
-  TA0CCR0  = (16000) - 1                                  ;
+  if(delay_ms > 0){
+      delay_ms--;
+  }
+  else{
+      delay_flag = 0;   //延时标志复位
+      TA1CTL  &= ~MC0;  //关闭定时器
+  }
+   
 }
-*/

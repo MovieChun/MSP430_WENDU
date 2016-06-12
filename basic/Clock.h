@@ -13,7 +13,7 @@
 #ifndef _clock_h_
 #define _clock_h_
 
-#define  TIME   (125 - 1)         //1ms定时  主频为16MHZ时
+#define  TIME   (250 - 1)         //1s定时  
 
 
 // 主时钟设置选项，可选择内部DCO或外部高频晶振
@@ -21,5 +21,9 @@
 
 extern void Init_CLK(void);        //时钟初始化函数
 extern void Init_Timer0_A5(void);  //定时器初始化
+extern void Init_Timer1_A3(void);
+
+extern char* TIM1_delay(unsigned int ms);  //中断延时,单位ms
+extern char delay_flag;    //延时结束标志为0
 
 #endif

@@ -6,61 +6,53 @@
 int times = 0;
 
 float Tdata;
-unsigned int data;
+
+
+char IP[]="211.81.253.244";
+unsigned int PORT = 8000;
+char data[]="hallo world\n";
 
 int main( void )
-{
-  // Stop watchdog timer to prevent time out reset
+{  
+  char flag;
+  //Stop watchdog timer to prevent time out reset
   WDTCTL = WDTPW + WDTHOLD;
   Init_CLK();
   Init_Timer0_A5();
+  Init_Timer1_A3();
   SCI_init();
-  
+  UART_init();
+    
   mlx90614_INIT();
   _EINT(); 
   
   P4DIR = 0XFF;
   P4OUT = 0Xff;
   
+  SCI_send_num(120);
+  SCI_send("\n");
+  
+ 
+  while(!SIM800_test());
+  SIM800_START("ATE0");  //关闭回显示
+  SIM800_init();
+  SIM800_START("ATE1");  //打开回显示
+  
+  times = 0;
   while(1){
-    //if(times > 1)
-    {
+    if(times > 1)
+    {   //flag++;
         times = 0;
         P4OUT ^= 0xff; 
         
-        /*SCI_send("\nTA:");
-        MLX_ReadT(TA ,&Tdata);
-        SCI_send_float(Tdata);
+        //SIM800_Getip(IP,PORT);
+        //STM800_SEND(data);
         
-        SCI_send("\nTout1:");
-        MLX_ReadT(TOBJ1,&Tdata);
-        SCI_send_float(Tdata);
-        
-        SCI_send("\nTout2:");
-        MLX_ReadT(TOBJ2,&Tdata);
-        SCI_send_float(Tdata);
-        
-        SCI_send("\nMAX:");
-        MLX_ReadT(TOMAX,&Tdata);
-        SCI_send_float(Tdata);  
-        
-        SCI_send("\nMIN:");
-        MLX_Read(TOMIN,&data);
-        SCI_send_num(data); 
-        
-        SCI_send("\nRANG:");
-        MLX_ReadT(TOMIN,&Tdata);
-        SCI_send_float(Tdata); 
-        
-        __bis_SR_register(LPM3_bits);             // Enter LPM3
-        //__no_operation();
-        */
-        //MLX_sleep();   //起不到休眠作用？
-       // SCI_send("ok\n");
-        __bis_SR_register(LPM4_bits);             // Enter LPM3
+       // __bis_SR_register(LPM4_bits);             // Enter LPM3
     
     }
    
+    
   }
   
 }
@@ -72,21 +64,10 @@ __interrupt void Timer0_A0 (void)
 {
   
   if(times <5000)times++;
-  __bic_SR_register_on_exit(LPM0_bits);   // Exit active CPU
+  //__bic_SR_register_on_exit(LPM0_bits);   // Exit active CPU
 }
 
 
-#pragma vector=USCI_A3_VECTOR
-__interrupt void USCI_A3_ISR(void)
-{
-  switch(__even_in_range(UCA3IV,4))
-  {
-  case 0:break                                                     ; // Vector 0 - no interrupt
-  case 2:                                                            // Vector 2 - RXIFG
-      RXBuffer_SCI      = UCA3RXBUF                                 ;
-      event_SCI           |= 0x01                                      ;
-      break                                                        ;
-  case 4:break                                                     ;  // Vector 4 - TXIFG
-  default: break                                                   ;  
-  }  
-}
+
+
+

@@ -33,16 +33,17 @@ char  event_SCI, RXBuffer_SCI;
 
 void SCI_init(void)
 { 
-  SCI_PORT_SEL    |= SCI_TXD + SCI_RXD                                      ; // 选择引脚功能
-  SCI_PORT_DIR    |= SCI_TXD                                            ; // 选择引脚功能
+  SCI_PORT_SEL    |= SCI_TXD + SCI_RXD                             ; // 选择引脚功能
+  SCI_PORT_DIR    |= SCI_TXD                                       ; // 选择引脚功能
+  
   UCA2CTL1        = UCSWRST                                        ; // 状态机复位
-  UCA2CTL1       |= UCSSEL_1                                       ; // CLK = ACLK
-  UCA2BR0         = 0x03                                           ; // 32kHz/9600=3.41 
+  UCA2CTL1       |= UCSSEL_2                                       ; // CLK = smclk
+  UCA2BR0         = 8                                              ; // 16mHz 
   UCA2BR1         = 0x00                                           ; 
-  UCA2MCTL        = UCBRS_3 + UCBRF_0                              ; // UCBRSx=3, UCBRFx=0
+  UCA2MCTL        = UCBRS_0 + UCBRF_11                              ; // UCBRSx=0, UCBRFx=11
+  UCA2MCTL       |= UCOS16                                         ; //开启16次采样
   UCA2CTL1       &= ~UCSWRST                                       ; // 启动状态机
   UCA2IE         |= UCRXIE                                         ; // 允许接收中断
-
 }
 
 /***************************************************************************
@@ -57,7 +58,7 @@ void SCI_send(char *tx_buf)
 {
   unsigned char i,length                                           ;
   length = strlen(tx_buf)                                          ;
-  for(i=0;i<length;i++)
+  for(i=0;i<length && *tx_buf!= '\0';i++)
   {
     UCA2TXBUF = *tx_buf++                                          ; 
     while (!(UCA2IFG&UCTXIFG))                                     ; 

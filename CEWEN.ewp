@@ -1917,6 +1917,9 @@
     <file>
       <name>$PROJ_DIR$\user\mlx90614.c</name>
     </file>
+    <file>
+      <name>$PROJ_DIR$\user\SIM800.c</name>
+    </file>
   </group>
   <file>
     <name>$PROJ_DIR$\main.c</name>

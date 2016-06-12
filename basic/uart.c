@@ -19,31 +19,6 @@
        UCA3RXBUF  接收到的一个字节         
 ***********************************************/
 
-char  event_uart, RXBuffer_uart;
-
-/***************************************************************************
-                                                                           
-函数：UART_init                                                         
-说明：串口初始化函数
-      使用ACLK,外部低速时钟，32KHZ
-      比较省电
-参数：无                                        
-                                                                          
-***************************************************************************/
-
-void UART_init_L(void)
-{ 
-  UART_PORT_SEL    |= UART_TXD + UART_RXD                                      ; // 选择引脚功能
-  UART_PORT_DIR    |= UART_TXD                                            ; // 选择引脚功能
-  UCA3CTL1        = UCSWRST                                        ; // 状态机复位
-  UCA3CTL1       |= UCSSEL_1                                       ; // CLK = ACLK
-  UCA3BR0         = 0x03                                           ; // 32kHz/9600=3.41 
-  UCA3BR1         = 0x00                                           ; 
-  UCA3MCTL        = UCBRS_3 + UCBRF_0                              ; // UCBRSx=3, UCBRFx=0
-  UCA3CTL1       &= ~UCSWRST                                       ; // 启动状态机
-  UCA3IE         |= UCRXIE                                         ; // 允许接收中断
-
-}
 
 
 
@@ -57,15 +32,15 @@ void UART_init_L(void)
       
 **********************************************************************/
 
-void UART_init_H(void)
+void UART_init(void)
 { 
-  UART_PORT_SEL    |= UART_TXD + UART_RXD                                      ; // 选择引脚功能
-  UART_PORT_DIR    |= UART_TXD                                            ; // 选择引脚功能
+  UART_PORT_SEL    |= UART_TXD + UART_RXD                          ; // 选择引脚功能
+  UART_PORT_DIR    |= UART_TXD                                     ; // 选择引脚功能
   UCA3CTL1        = UCSWRST                                        ; // 状态机复位
   UCA3CTL1       |= UCSSEL_2                                       ; // CLK = smclk
-  UCA3BR0         = 104                                            ; // 16mHz/9600/16=0x68 
+  UCA3BR0         = 8                                              ; // 16mHz 
   UCA3BR1         = 0x00                                           ; 
-  UCA3MCTL        = UCBRS_0 + UCBRF_3                              ; // UCBRSx=3, UCBRFx=0
+  UCA3MCTL        = UCBRS_0 + UCBRF_11                              ; // UCBRSx=0, UCBRFx=11
   UCA3MCTL       |= UCOS16                                         ; //开启16次采样
   UCA3CTL1       &= ~UCSWRST                                       ; // 启动状态机
   UCA3IE         |= UCRXIE                                         ; // 允许接收中断
@@ -83,7 +58,7 @@ void UART_send(char *tx_buf)
 {
   unsigned char i,length                                           ;
   length = strlen(tx_buf)                                          ;
-  for(i=0;i<length;i++)
+  for(i=0;i<length && *tx_buf!= '\0';i++)
   {
     UCA3TXBUF = *tx_buf++                                          ; 
     while (!(UCA3IFG&UCTXIFG))                                     ; 
