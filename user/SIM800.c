@@ -17,113 +17,158 @@ char com_num = 0;  //命令返回的字符串
 #define RECIVE_RES()   uart_num = 0
 //-------------GPRS指令表---------------------
 
-
+//strcspn
 
 //-------------GSM指令表---------------------
 
 //----------------操作函数---------------------
-char  re_commend[RECMAX];
 
-//查看状态
-char* SIM800_START(char*commend){
-     char* flag;
-     int i = 0;
-     UART_send(commend);
-     uart_get = 0;
-     flag = TIM1_delay(100);
-     while(*flag == 1);
-     if(uart_get == 1){
-        for(i = 0;i < RECMAX && recive_data[i] != '\0';i++)
-        re_commend[i] = recive_data[i];
+/**************************************************
+      接收比较
+
+*****************************************************/
+char str_compare(char* str,const char* command ,char num){
+      char flag = 0;
+      
+      while(*str != '\n' && *str != '\0')str++;  //跳过该行
+      if(2 == num){                           //跳过第一个状态，返回第二个
+         while(*str != '\n' && *str != '\0')str++;
+         while(*str != '\n' && *str != '\0')str++;
       }
-     else {
-       for(i = 0;i < 5;i++)
-         re_commend[i] = 'X';
-       re_commend[i] = '\0';
-     }
-     //SCI_send(re_commend); 
-     return re_commend;  
+      
+      if(*str == '\n')str++;
+      
+      while(*str != '\0' && *command != '\0'){
+        if(*command == '?'){
+            command++;
+            str++;
+        }
+        
+        if(*str++ != *command++)break;
+      }
+      
+      if(*command == '\0')flag = 1;
+    
+      return flag;
 }
 
-//设置参数
-char* SIM800_SET(char*commend,unsigned int data){
+/*****************************************************
+    发送指令
+
+*******************************************************/
+#define  com_start()  UART_send("AT+")
+#define  com_send     UART_send 
+#define  com_set()    UART_send("=")
+#define  com_state()  UART_send("?")
+#define  com_quote()  UART_send("\"")
+
+
+void com_end(void){
      char* flag;
-     UART_send(commend);
-     UART_send("=");
-     UART_send_num(data);
-     uart_get = 0;
-     flag = TIM1_delay(100);
-     while(*flag == 1);
-     for(int i = 0;i < RECMAX && recive_data[i] != '\0';i++)
-        re_commend[i] = recive_data[i];
-     //SCI_send(recive_data); 
-     return re_commend;  
+     UART_send("\n");        //发送截止符
+     uart_get = 0;           //接收数组归位
+     flag = TIM1_delay(10);  //最长等待10ms
+     while(*flag == 1);      //等待数据接收完成，若无返回则10ms后退出  
+     
+}
+
+//向SIM发送指令  命令  需要回馈的状态  状态所在位置
+//ip而外处理
+char  SIM_command(const char*command ,const char* recom , char num ){
+      char ok = 0;
+      com_start();
+      com_send((char*)command);
+      com_end();
+      if(1 == uart_get && 1 == str_compare(recive_data,recom ,num))ok = 1;
+      uart_get = 0;
+      
+      SCI_send(recive_data);
+      
+      return ok;
+}
+  
+
+/****************************************************
+
+
+
+******************************************************/
+void send_data(void){  //查看
+    while(delay_flag == 1);
+    if(1 == uart_get){
+       uart_get = 0;
+       SCI_send(recive_data);   //发送给电脑
+    }
 }
 
 
 //测试是否连接上模块
 char SIM800_test(void){
-     char* flag;
      char ok = 0;
-     char i = 0;
-     UART_send("AT\n");
-     uart_get = 0;
-     flag = TIM1_delay(100);
      
-     while(*flag == 1);
-     if(1 == uart_get){
-       if(recive_data[0] == 'O'){
-          if(recive_data[1] == 'K')ok = 1;
-       }
-       else{
-          for(i = 0;recive_data[i] != '\n' && i< 6;i++);    //跳到第二行，即跳过 AT
-          if('O'== recive_data[i+1] && 'K'==recive_data[i+2]) ok = 1;
-       }
-     }
-     uart_get = 0;
+     com_send("AT");
+     com_end();
+     //收到数据并且返回ok
+    // if(1 == uart_get && 1 == str_compare(recive_data,"OK" ,1))ok = 1;
+     //else SCI_send("error\n");
      
-     SCI_send(recive_data);     
+     if(1 == uart_get && 1 == strcspn(recive_data,"OK") )ok = 1;
+     
+     SCI_send(recive_data);
      return ok;
 }
+
+
 
 
 char SIM800_init(void){
-     char* flag;
      char ok = 0;
-     char i = 0;
+    
+     //UART_send("AT+CGREG=1\n");   //使用网络
+     SIM_command( "CGREG=1","OK", 1);
      
-     UART_send("AT+CGREG=1\n");   //使用网络
-     uart_get = 0;                //接收标志复位
-     flag = TIM1_delay(10);       //最长等待10ms
-     while(*flag);                //等待数据接收完成
-     SCI_send(recive_data);       //发送给电脑查看返回值 第二行返回OK
-     
-
-     UART_send("AT+CGREG?\n");                         //发送指令
-     uart_get = 0;                                     //接收标志复位
-     flag = TIM1_delay(10);                            //最长等待时间10ms
-     while(*flag);                                     //等待接收完成
-     if(1 == uart_get){                                //有数据输入
-       for(i = 0;recive_data[i] != ',' && i< 20;i++);  //寻找“，” 
-       if('1' == recive_data[i+1] || '5'==recive_data[i+1]) ok = 1; //1 表示已连接网络 ； 5表示漫游状态
-     }
-     uart_get = 0;
-     SCI_send(recive_data);  //发送给电脑 查看
+     //UART_send("AT+CGREG?\n");                         //发送指令
+     SIM_command( "CGREG?","+CGREG: 1,1", 2);
      
      return ok;
 }
 
-char SIM800_Getip(char *ip,unsigned int port ){
+//----------------------------------------------------
+//
+//--------------------------------------------------------
+char SIM800_status(void){  //查看链接状态
      char* flag;
      char i =0;
      char ok = 0;
+     UART_send("AT+CIPSTATUS\n");
      uart_get = 0;
-     UART_send("AT+CIPSTART = \"TCP\",\"");
-     UART_send(ip);
-     UART_send("\",");
-     UART_send_num(port);
-     UART_send("\n");
+     flag = TIM1_delay(100);
+     while(*flag);
+     if(1 == uart_get){
+       for(i = 0;recive_data[i] != '\n' && i< 6;i++);    //跳到第二行，即跳过 AT
+       if('O'== recive_data[i+1] && 'K'==recive_data[i+2]) ok = 1;    //已接受到命令
+       if(ok == 1){
+          //flag = TIM1_delay(100);                            //再等100ms？ 
+          //while(*flag);                                     //等待接收完成
+          for(;recive_data[i] != '\n' && i< 100;i++);    //跳到第二行，即跳过 AT
+          for(;recive_data[i] == 'S' && i< 100;i++);     //寻找closed的s
+          if(recive_data[i + 1] == 'E')ok=2;
+       }
+     }
+     uart_get = 0;
      
+     SCI_send(recive_data);   //发送给电脑
+     
+     return ok;
+}
+
+//AT+CIPCLOSE  断开链接
+char SIM800_close(void){  //查看链接状态
+     char* flag;
+     char i =0;
+     char ok = 0;
+     UART_send("AT+CIPCLOSE\n");
+     uart_get = 0;
      flag = TIM1_delay(100);
      while(*flag);
      if(1 == uart_get){
@@ -133,7 +178,32 @@ char SIM800_Getip(char *ip,unsigned int port ){
      uart_get = 0;
      
      SCI_send(recive_data);   //发送给电脑
-     uart_get = 0;  
+     
+     return ok;
+}
+
+char SIM800_Getip(char *ip,unsigned int port ){
+     char* flag;
+     char i =0;
+     char ok = 0;
+     
+          
+     UART_send("AT+CIPSTART = \"TCP\",\"");
+     UART_send(ip);
+     UART_send("\",");
+     UART_send_num(port);
+     UART_send("\n");
+     uart_get = 0;
+     flag = TIM1_delay(100);
+     while(*flag);
+     if(1 == uart_get){
+       for(i = 0;recive_data[i] != '\n' && i< 6;i++);    //跳到第二行，即跳过 AT
+       if('O'== recive_data[i+1] && 'K'==recive_data[i+2]) ok = 1;
+     }
+     uart_get = 0;
+     
+     SCI_send(recive_data);   //发送给电脑
+     
      
      return ok;
 }
