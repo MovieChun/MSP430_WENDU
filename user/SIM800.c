@@ -25,10 +25,43 @@ char com_num = 0;  //命令返回的字符串
 
 /**************************************************
       接收比较
-
+      ？或* 可以跳过不确定字符
 *****************************************************/
 char str_compare(char* str,const char* command ,char num){
       char flag = 0;
+      int length = sizeof(command);
+      int cnt = 0;
+      while(*str != '\n' && *str != '\0')str++;  //跳过该行
+      
+      if(2 == num){                              //跳过第一个状态，返回第二个
+         while(*str != '\n' && *str != '\0')str++;
+         while(*str != '\n' && *str != '\0')str++;
+      }
+      
+      if(*str == '\n')str++;
+      
+      for(cnt = 0;*str != '\0' && cnt < length;cnt++){
+        if(*command == '?' || *command == '*'){
+            command++;
+            str++;
+        }
+        
+        if(*str++ != *command++)break;
+      }
+      
+      if(cnt == length )flag = 1;
+     
+      return flag;
+}
+
+/***********************************************
+提取字符或字符串  ?提取一个字符  *提取往后的字符
+************************************************/
+
+char str_getchar(char* str,const char* command ,char num ,char *get){
+      char flag = 0;
+      int length = sizeof(command);
+      int cnt = 0;
       
       while(*str != '\n' && *str != '\0')str++;  //跳过该行
       if(2 == num){                           //跳过第一个状态，返回第二个
@@ -37,20 +70,53 @@ char str_compare(char* str,const char* command ,char num){
       }
       
       if(*str == '\n')str++;
-      
-      while(*str != '\0' && *command != '\0'){
+      for(cnt = 0;*str != '\0' && cnt < length;cnt++){
         if(*command == '?'){
             command++;
-            str++;
+            *get = *str++;
+        }
+        else if(*command == '*'){
+           while(*str != '\r') *get++ = *str++;
+           break;
         }
         
         if(*str++ != *command++)break;
       }
       
-      if(*command == '\0')flag = 1;
-    
+      
+      if(cnt == length )flag = 1;
+        
       return flag;
 }
+/****************************************************
+查看str1 是否包含 str2
+若包含字符串2，返回str2在str1轴的后一个字符
+否则返回-1
+******************************************************/
+int str_include(char* str,const char* command){
+   char flag = 0; 
+   int length = sizeof(command);
+   int i = 0;
+   int cnt = 0;
+   
+   if(*command == '\0') return 0;
+   
+   while(str[cnt] != '\0'){
+       if(str[cnt] == command[i] )i++;
+       else if(str[cnt] == command[0])i = 1;
+       else i = 0;
+       
+       cnt++;
+       if(i >= length){
+         flag = 1;
+         break;
+       }    
+   }
+   if(0 == flag)cnt= -1;
+   
+   return cnt;  
+}
+
 
 /*****************************************************
     发送指令
@@ -74,19 +140,28 @@ void com_end(void){
 
 //向SIM发送指令  命令  需要回馈的状态  状态所在位置
 //ip而外处理
-char  SIM_command(const char*command ,const char* recom , char num ){
-      char ok = 0;
+//0 无问题  1 命令不符合  2 链接不上
+char  SIM_command(const char*command ,const char* recomm){
+      char error = 2;
+      int length = 0;
+      
       com_start();
       com_send((char*)command);
       com_end();
-      if(1 == uart_get && 1 == str_compare(recive_data,recom ,num))ok = 1;
-      uart_get = 0;
+      if(1 == uart_get){
+            error = 1;           //收到信号但不是OK 说明命令指令错误
+            length = str_include(recive_data + length,recomm);
+            if( -1 != length){
+                 error = 0;      //能收到OK 说明状态返回不正确
+            }
+      }
+         
+      uart_get = 0;      
       
       SCI_send(recive_data);
       
-      return ok;
+      return error;
 }
-  
 
 /****************************************************
 
@@ -104,18 +179,19 @@ void send_data(void){  //查看
 
 //测试是否连接上模块
 char SIM800_test(void){
-     char ok = 0;
+     char error = 3;
      
      com_send("AT");
      com_end();
      //收到数据并且返回ok
-    // if(1 == uart_get && 1 == str_compare(recive_data,"OK" ,1))ok = 1;
-     //else SCI_send("error\n");
+     if(1 == uart_get){
+       error = 2;
+       if(-1 != str_include(recive_data,"OK"))error = 0;
+     }
      
-     if(1 == uart_get && 1 == strcspn(recive_data,"OK") )ok = 1;
      
      SCI_send(recive_data);
-     return ok;
+     return error;
 }
 
 
@@ -124,11 +200,10 @@ char SIM800_test(void){
 char SIM800_init(void){
      char ok = 0;
     
-     //UART_send("AT+CGREG=1\n");   //使用网络
-     SIM_command( "CGREG=1","OK", 1);
      
-     //UART_send("AT+CGREG?\n");                         //发送指令
-     SIM_command( "CGREG?","+CGREG: 1,1", 2);
+       while(SIM_command( "CGREG=1","\0"));
+       while(SIM_command( "CGREG?","+CGREG: 1,1"));
+    // SCI_send_num(100);
      
      return ok;
 }

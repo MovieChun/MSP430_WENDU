@@ -1,7 +1,7 @@
 
 #include "msp430x54x.h"
 #include "main.h"
-
+#include <string.h>
 
 int times = 0;
 
@@ -29,10 +29,10 @@ int main( void )
   P4DIR = 0XFF;
   P4OUT = 0Xff;
   
-  SCI_send_num(120);
+  SCI_send_num(250);
   SCI_send("\n");
- 
-  while(!SIM800_test());
+  
+  while(SIM800_test());
   //SIM800_START("ATE0");  //关闭回显示
   //while(!SIM800_init());
   //SIM800_START("ATE1");  //打开回显示调试时用
@@ -41,7 +41,7 @@ int main( void )
   
   times = 0;
   while(1){
-    if(times > 2)
+    if(times > 0)
     {   //flag++;
         times = 0;
         P4OUT ^= 0xff; 
