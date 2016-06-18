@@ -1915,6 +1915,9 @@
   <group>
     <name>USER</name>
     <file>
+      <name>$PROJ_DIR$\user\Fstring.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\user\mlx90614.c</name>
     </file>
     <file>

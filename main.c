@@ -34,10 +34,8 @@ int main( void )
   
   while(SIM800_test());
   //SIM800_START("ATE0");  //关闭回显示
-  //while(!SIM800_init());
   //SIM800_START("ATE1");  //打开回显示调试时用
-  //if(SIM800_status() != 2)SIM800_close();
-  //SIM800_Getip(IP,PORT);
+  SIM800_Getip(IP,PORT);
   
   times = 0;
   while(1){
@@ -46,8 +44,9 @@ int main( void )
         times = 0;
         P4OUT ^= 0xff; 
         SIM800_init();
+        //SIM800_Getip(IP,PORT);
+        SIM_command( "CIPCLOSE", "CLOSED");
         //SIM800_test();
-        // send_data();
         //STM800_SEND(data);
         
        // __bis_SR_register(LPM4_bits);             // Enter LPM3
