@@ -109,9 +109,16 @@ char SIM_DelayRecom(unsigned int ms ,const char *recomm){
        error = 1;
        if(-1 != str_include(recive_data,recomm)){
          error = 0;
-         uart_get = 0;
+         //uart_get = 0;
        }
      }    
+      uart_get = 0;
+#ifdef SIM_DEBUG
+       SCI_send(recive_data);
+       if(error == 0)SCI_send("  test ok\n");
+       else SCI_send("  test no\n");
+#endif     
+     
      return error;
 }
 /******************************************************************
@@ -144,23 +151,14 @@ char SIM800_test(void){
 
 char SIM800_init(void){
      char ok = 0;
-     //char *flag;
-     //char get[10] = "ab";
-       //SIM_command( "CIPSTATUS","CLOSED");
-       //while(SIM_command( "CGREG=1","\0"));
-       //while(SIM_comGet( "CGREG?","+CGREG: 1,?",get)); //? 1表示已经连接  5表示漫游
-       //while(SIM_command( "CIPCLOSE", "CLOSED"));  //断开连接
+ 
+     char get[10] = "ab";
+     
+       while(SIM_command( "CGREG=1","\0"));
+       while(SIM_comGet( "CGREG?","+CGREG: 1,?",get)); //? 1表示已经连接  5表示漫游
        while(SIM_command( "CIPSTATUS","OK"));  //查看链接状态
-       //flag = TIM1_delay(100);  //最长等待10ms
-       //while(*flag == 1);      //等待数据接收完成，若无返回则10ms后退出 
-      // while(-1 == str_include(recive_data,"CONNECTING"));
-       
-       //while(SIM_command( "AT+CIPSTATUS\n","CLOSED"));  //查看链接状态
-       //while(SIM_command( "AT+CIPSTATUS\n","CLOSED"));  //查看链接状态
-       
-       // SCI_send_num(str_include("asdf qazwsx","qaz?s"));
-       //SCI_send(get);
-       //SCI_send("\n");
+
+      
      
      return ok;
 }
@@ -179,9 +177,9 @@ char SIM800_Getip(char *ip,unsigned int port ){
      UART_send("\",");
      UART_send_num(port);
      UART_send("\n");
-     uart_get = 0; 
+
      uart_get = 0;
-     flag = TIM1_delay(10);  //最长等待10ms
+     flag = TIM1_delay(100);  //最长等待10ms
      while(*flag == 1);      //等待数据接收完成，若无返回则10ms后退出    
      
 #ifdef SIM_DEBUG
@@ -192,33 +190,31 @@ char SIM800_Getip(char *ip,unsigned int port ){
 }
 
 
-char STM800_SEND(char *data){
-  char* flag;
-  char end[1]={0x1a};
-  UART_send("AT+CIPSEND\n");
-  
-  flag = TIM1_delay(100);
-  uart_get = 0;
-  while(*flag);  
+//------------GPRS发送函数------------
+char GPRS_Start(void){
+  char error = 3;
+  error = SIM_command( "CIPSEND",">");
 
 #ifdef SIM_DEBUG
         SCI_send(recive_data);
 #endif
   
-  UART_send(data);
-  UART_send(end);
-  uart_get = 0;
-  while(*flag);  
-
-#ifdef SIM_DEBUG
-        SCI_send(recive_data);
-#endif
-  
-  return 0;
+  return error;
 }
 
-
-
+char GPRS_SendEnd(void){
+    char *flag; 
+    UART_send_char(0x1a); //发送截止符
+     
+    uart_get = 0;
+    flag = TIM1_delay(10);  //最长等待10ms
+    while(*flag == 1);      //等待数据接收完成，若无返回则10ms后退出    
+     
+#ifdef SIM_DEBUG
+        SCI_send(recive_data);
+#endif
+    return 0;
+}
 
 //-------------------中断接收-------------------------//
 //---------------接收SIM返回的数据--------------------//
