@@ -10,6 +10,8 @@
 #include "SPI.h"
 #include "IIC.h"
 #include "uart.h"
+#include "uart2.h"
+
 
 #include "mlx90614.h"
 #include "SIM800.h"

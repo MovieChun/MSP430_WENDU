@@ -6,216 +6,80 @@
   <configuration>
     <name>Debug</name>
     <outputs>
+      <file>$PROJ_DIR$\basic\Clock.h</file>
+      <file>$PROJ_DIR$\basic\EXIT.c</file>
+      <file>$PROJ_DIR$\basic\EXIT.h</file>
       <file>$PROJ_DIR$\basic\Clock.c</file>
       <file>$PROJ_DIR$\basic\flash.h</file>
-      <file>$PROJ_DIR$\basic\Clock.h</file>
-      <file>$PROJ_DIR$\basic\IIC.c</file>
-      <file>$PROJ_DIR$\basic\EXIT.c</file>
       <file>$PROJ_DIR$\basic\flash.c</file>
-      <file>$PROJ_DIR$\basic\EXIT.h</file>
-      <file>$PROJ_DIR$\basic\uart.h</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\ycheck.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\IIC.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\CEWEN.pbd</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\SCI.r43</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Product.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\flash.r43</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Defaults.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\flash.pbi</file>
       <file>$TOOLKIT_DIR$\config\lnk430F5438.xcl</file>
-      <file>$TOOLKIT_DIR$\inc\msp430x54x.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\mlx90614.pbi</file>
-      <file>$PROJ_DIR$\main.h</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\string.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\SPI.r43</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\ystdio.h</file>
+      <file>$PROJ_DIR$\user\SIM800.h</file>
+      <file>$PROJ_DIR$\Debug\Exe\CEWEN.d43</file>
+      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\Clock.pbi</file>
+      <file>$PROJ_DIR$\basic\uart.h</file>
+      <file>$PROJ_DIR$\user\Fstring.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\mlx90614.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\IIC.r43</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\xencoding_limits.h</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\yvals.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\uart.pbi</file>
+      <file>$PROJ_DIR$\Debug\Exe\CEWEN.txt</file>
+      <file>$PROJ_DIR$\Debug\Obj\Fstring.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\SPI.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\Clock.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\SCI.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\Fstring.r43</file>
       <file>$TOOLKIT_DIR$\inc\dlib\c\ysizet.h</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\stdio.h</file>
-      <file>$TOOLKIT_DIR$\lib\dlib\dl430xsfn.r43</file>
-      <file>$PROJ_DIR$\basic\SCI.c</file>
-      <file>$TOOLKIT_DIR$\inc\in430.h</file>
-      <file>$PROJ_DIR$\main.c</file>
-      <file>$PROJ_DIR$\basic\SCI.h</file>
-      <file>$PROJ_DIR$\user\Fstring.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\EXIT.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\stdlib.h</file>
       <file>$PROJ_DIR$\Debug\Obj\uart.r43</file>
-      <file>$PROJ_DIR$\user\SIM800.c</file>
+      <file>$PROJ_DIR$\user\mlx90614.c</file>
+      <file>$PROJ_DIR$\basic\IIC.h</file>
       <file>$PROJ_DIR$\basic\SPI.h</file>
+      <file>$PROJ_DIR$\basic\IIC.c</file>
+      <file>$PROJ_DIR$\basic\uart.c</file>
+      <file>$TOOLKIT_DIR$\lib\dlib\dl430xsfn.h</file>
+      <file>$PROJ_DIR$\user\mlx90614.h</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\stdio.h</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Threads.h</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\string.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\EXIT.r43</file>
+      <file>$PROJ_DIR$\basic\SCI.c</file>
+      <file>$TOOLKIT_DIR$\lib\dlib\dl430xsfn.r43</file>
+      <file>$PROJ_DIR$\main.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\mlx90614.pbi</file>
+      <file>$PROJ_DIR$\user\Fstring.c</file>
+      <file>$PROJ_DIR$\user\SIM800.c</file>
       <file>$PROJ_DIR$\basic\SPI.c</file>
       <file>$TOOLKIT_DIR$\config\multiplier32_loc2.xcl</file>
-      <file>$PROJ_DIR$\Debug\Exe\CEWEN.txt</file>
-      <file>$PROJ_DIR$\Debug\Obj\SIM800.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\EXIT.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\uart.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Defaults.h</file>
-      <file>$PROJ_DIR$\basic\IIC.h</file>
-      <file>$PROJ_DIR$\basic\uart.c</file>
-      <file>$PROJ_DIR$\user\mlx90614.h</file>
       <file>$PROJ_DIR$\Debug\Obj\SIM800.r43</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Threads.h</file>
-      <file>$PROJ_DIR$\user\mlx90614.c</file>
-      <file>$PROJ_DIR$\Debug\Obj\SCI.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\ycheck.h</file>
-      <file>$TOOLKIT_DIR$\lib\dlib\dl430xsfn.h</file>
-      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\IIC.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\Fstring.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\xencoding_limits.h</file>
-      <file>$PROJ_DIR$\Debug\Exe\CEWEN.d43</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\stdlib.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\Fstring.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\Clock.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\Clock.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\flash.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\EXIT.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\SPI.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\main.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\mlx90614.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\SCI.r43</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\yvals.h</file>
-      <file>$PROJ_DIR$\user\SIM800.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\flash.pbi</file>
-      <file>$PROJ_DIR$\user\Fstring.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\CEWEN.pbd</file>
-      <file>$PROJ_DIR$\Debug\Obj\IIC.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Product.h</file>
+      <file>$TOOLKIT_DIR$\inc\in430.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\SIM800.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\SPI.r43</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\ystdio.h</file>
+      <file>$TOOLKIT_DIR$\inc\msp430x54x.h</file>
+      <file>$PROJ_DIR$\main.c</file>
+      <file>$PROJ_DIR$\basic\SCI.h</file>
+      <file>$PROJ_DIR$\basic\uart2.c</file>
+      <file>$PROJ_DIR$\basic\uart2.h</file>
     </outputs>
-    <file>
-      <name>$PROJ_DIR$\basic\Clock.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 49</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 50</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 9 19 42 47 40 57 32 64 45 37 15 16 14 2</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 9 19 42 47 40 57 32 41 64 45 37 15 16 14 2</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\basic\IIC.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 43</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 62</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 9 19 42 47 40 57 32 64 45 37 15 16 14 33</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 9 19 42 47 40 57 32 41 64 45 37 15 16 14 33</file>
-        </tool>
-      </inputs>
-    </file>
     <file>
       <name>$PROJ_DIR$\basic\EXIT.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 52</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 30</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 9 19 42 47 40 57 32 64 45 37 15 16 14 6</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 9 19 42 47 40 57 32 41 64 45 37 15 16 14 6</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\basic\flash.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 59</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 51</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 9 19 42 47 40 57 32 64 45 37 15 16 14 1</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 9 19 42 47 40 57 32 41 64 45 37 15 16 14 1</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\basic\SCI.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 39</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 56</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 9 19 42 47 40 57 32 64 45 37 15 16 14 12 21</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 9 19 42 47 40 57 32 41 64 45 37 15 16 14 12 21</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\main.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 63</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 54</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 9 19 42 11 47 40 57 32 64 45 37 15 16 14 2 1 21 12 25 33 7 35 58</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 9 19 42 11 47 40 57 32 41 64 45 37 15 16 14 2 1 21 12 25 33 7 35 58</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\user\Fstring.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 44</file>
+          <file> 35</file>
         </tool>
         <tool>
           <name>ICC430</name>
@@ -225,121 +89,57 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 9 19 42 60</file>
+          <file> 62 58 18 36 6 25 13 11 24 46 34 45 61 2</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 9 19 42 60</file>
+          <file> 62 58 18 36 6 25 13 43 11 24 46 34 45 61 2</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\user\SIM800.c</name>
+      <name>$PROJ_DIR$\basic\Clock.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 29</file>
+          <file> 19</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 36</file>
+          <file> 30</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 9 19 42 58 2 7 47 40 57 32 64 45 37 15 16 14 12 21 60</file>
+          <file> 62 58 18 36 6 25 13 11 24 46 34 45 61 0 20 47</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 9 19 42 58 2 7 47 40 57 32 41 64 45 37 15 16 14 12 21 60</file>
+          <file> 62 58 18 36 6 25 13 43 11 24 46 34 45 61 0 20 47</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\basic\SPI.c</name>
+      <name>$PROJ_DIR$\basic\flash.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 53</file>
+          <file> 14</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 13</file>
+          <file> 12</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 9 19 42 47 40 57 32 64 45 37 15 16 14 12 25</file>
+          <file> 62 58 18 36 6 25 13 11 24 46 34 45 61 4</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 9 19 42 47 40 57 32 41 64 45 37 15 16 14 12 25</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\Debug\Exe\CEWEN.txt</name>
-      <inputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 8 27 50 30 48 62 56 36 13 51 54 55 23 17</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\basic\uart.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 31</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 23</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 9 19 42 47 40 57 32 64 45 37 15 16 14 12 7</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 9 19 42 47 40 57 32 41 64 45 37 15 16 14 12 7</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\user\mlx90614.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 10</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 55</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 9 19 42 47 40 57 32 64 45 37 15 16 14 33 35</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 9 19 42 47 40 57 32 41 64 45 37 15 16 14 33 35</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\Debug\Exe\CEWEN.d43</name>
-      <inputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 8 27 50 30 62 56 13 51 54 55 17</file>
+          <file> 62 58 18 36 6 25 13 43 11 24 46 34 45 61 4</file>
         </tool>
       </inputs>
     </file>
@@ -348,98 +148,34 @@
       <inputs>
         <tool>
           <name>BILINK</name>
-          <file> 49 52 44 43 39 29 53 59 63 10 31</file>
+          <file> 19 35 28 7 32 59 29 14 9 52 26</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>[ROOT_NODE]</name>
-      <outputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 28</file>
-        </tool>
-      </outputs>
-    </file>
-  </configuration>
-  <configuration>
-    <name>Release</name>
-    <outputs>
-      <file>$PROJ_DIR$\basic\Clock.c</file>
-      <file>$PROJ_DIR$\basic\flash.h</file>
-      <file>$PROJ_DIR$\basic\Clock.h</file>
-      <file>$PROJ_DIR$\basic\IIC.c</file>
-      <file>$PROJ_DIR$\basic\EXIT.c</file>
-      <file>$PROJ_DIR$\basic\flash.c</file>
-      <file>$PROJ_DIR$\basic\EXIT.h</file>
-      <file>$PROJ_DIR$\Release\Obj\flash.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\clib\string.h</file>
-      <file>$TOOLKIT_DIR$\lib\clib\cl430xsf.r43</file>
-      <file>$PROJ_DIR$\Release\Obj\CEWEN.pbd</file>
-      <file>$PROJ_DIR$\Release\Obj\main.r43</file>
-      <file>$PROJ_DIR$\Release\Obj\main.pbi</file>
-      <file>$PROJ_DIR$\Release\Obj\SPI.r43</file>
-      <file>$PROJ_DIR$\Release\Obj\SPI.pbi</file>
-      <file>$PROJ_DIR$\Release\Obj\IIC.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\clib\stdio.h</file>
-      <file>$TOOLKIT_DIR$\inc\clib\stdlib.h</file>
-      <file>$PROJ_DIR$\Release\Obj\Clock.pbi</file>
-      <file>$PROJ_DIR$\Release\Exe\CEWEN.txt</file>
-      <file>$PROJ_DIR$\Release\Obj\mlx90614.r43</file>
-      <file>$PROJ_DIR$\Release\Obj\mlx90614.pbi</file>
-      <file>$PROJ_DIR$\Release\Obj\IIC.r43</file>
-      <file>$PROJ_DIR$\Release\Obj\flash.r43</file>
-      <file>$PROJ_DIR$\Release\Obj\Clock.r43</file>
-      <file>$PROJ_DIR$\Release\Obj\EXIT.r43</file>
-      <file>$PROJ_DIR$\Release\Obj\SCI.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\clib\stdarg.h</file>
-      <file>$PROJ_DIR$\Release\Obj\EXIT.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\clib\sysmac.h</file>
-      <file>$TOOLKIT_DIR$\config\lnk430F5438.xcl</file>
-      <file>$TOOLKIT_DIR$\inc\msp430x54x.h</file>
-      <file>$PROJ_DIR$\main.h</file>
-      <file>$PROJ_DIR$\basic\SCI.c</file>
-      <file>$TOOLKIT_DIR$\inc\in430.h</file>
-      <file>$PROJ_DIR$\main.c</file>
-      <file>$PROJ_DIR$\basic\SCI.h</file>
-      <file>$PROJ_DIR$\basic\SPI.h</file>
-      <file>$PROJ_DIR$\basic\SPI.c</file>
-      <file>$TOOLKIT_DIR$\config\multiplier32_loc2.xcl</file>
-      <file>$PROJ_DIR$\basic\IIC.h</file>
-      <file>$PROJ_DIR$\user\mlx90614.h</file>
-      <file>$PROJ_DIR$\user\mlx90614.c</file>
-      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
-      <file>$PROJ_DIR$\Release\Obj\SCI.r43</file>
-    </outputs>
-    <file>
-      <name>$PROJ_DIR$\basic\Clock.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 18</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 24</file>
-        </tool>
-      </outputs>
+      <name>$PROJ_DIR$\Debug\Exe\CEWEN.d43</name>
       <inputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 31 34 43 17 29 16 27 2</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 31 34 43 17 29 16 27 2</file>
+          <name>XLINK</name>
+          <file> 15 56 30 48 23 10 60 12 31 22 50</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\basic\IIC.c</name>
+      <name>$PROJ_DIR$\Debug\Exe\CEWEN.txt</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 15 56 30 48 33 23 10 57 60 12 31 22 37 50</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\user\mlx90614.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 15</file>
+          <file> 52</file>
         </tool>
         <tool>
           <name>ICC430</name>
@@ -449,39 +185,16 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 31 34 43 17 29 16 27 40</file>
+          <file> 62 58 18 36 6 25 13 11 24 46 34 45 61 39 44</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 31 34 43 17 29 16 27 40</file>
+          <file> 62 58 18 36 6 25 13 43 11 24 46 34 45 61 39 44</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\basic\EXIT.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 28</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 25</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 31 34 43 17 29 16 27 6</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 31 34 43 17 29 16 27 6</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\basic\flash.c</name>
+      <name>$PROJ_DIR$\basic\IIC.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
@@ -495,29 +208,34 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 31 34 43 17 29 16 27 1</file>
+          <file> 62 58 18 36 6 25 13 11 24 46 34 45 61 39</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 31 34 43 17 29 16 27 1</file>
+          <file> 62 58 18 36 6 25 13 43 11 24 46 34 45 61 39</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\Release\Obj\CEWEN.pbd</name>
-      <inputs>
+      <name>$PROJ_DIR$\basic\uart.c</name>
+      <outputs>
         <tool>
-          <name>BILINK</name>
-          <file> 18 28 15 26 14 7 12 21</file>
+          <name>BICOMP</name>
+          <file> 26</file>
         </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\Release\Exe\CEWEN.txt</name>
+        <tool>
+          <name>ICC430</name>
+          <file> 37</file>
+        </tool>
+      </outputs>
       <inputs>
         <tool>
-          <name>XLINK</name>
-          <file> 30 39 24 25 22 44 13 23 11 20 9</file>
+          <name>BICOMP</name>
+          <file> 62 58 18 36 6 25 13 11 24 46 34 45 61 47 20</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 62 58 18 36 6 25 13 43 11 24 46 34 45 61 47 20</file>
         </tool>
       </inputs>
     </file>
@@ -526,44 +244,67 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 26</file>
+          <file> 32</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 44</file>
+          <file> 10</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 31 34 43 17 29 16 27 8 36</file>
+          <file> 62 58 18 36 6 25 13 11 24 46 34 45 61 47 64</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 31 34 43 17 29 16 27 8 36</file>
+          <file> 62 58 18 36 6 25 13 43 11 24 46 34 45 61 47 64</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\main.c</name>
+      <name>$PROJ_DIR$\user\Fstring.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 12</file>
+          <file> 28</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 11</file>
+          <file> 33</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 31 34 43 32 17 29 16 27 2 1 36 8 37 40 41</file>
+          <file> 21</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 31 34 43 32 17 29 16 27 2 1 36 8 37 40 41</file>
+          <file> 21</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\user\SIM800.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 59</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 57</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 62 58 18 16 0 20 36 6 25 13 11 24 46 34 45 61 47 64 21</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 62 58 18 16 0 20 36 6 25 13 43 11 24 46 34 45 61 47 64 21</file>
         </tool>
       </inputs>
     </file>
@@ -572,44 +313,44 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 14</file>
+          <file> 29</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 13</file>
+          <file> 60</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 31 34 43 17 29 16 27 8 37</file>
+          <file> 62 58 18 36 6 25 13 11 24 46 34 45 61 47 40</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 31 34 43 17 29 16 27 8 37</file>
+          <file> 62 58 18 36 6 25 13 43 11 24 46 34 45 61 47 40</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\user\mlx90614.c</name>
+      <name>$PROJ_DIR$\main.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 21</file>
+          <file> 9</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 20</file>
+          <file> 31</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 31 34 43 17 29 16 27 40 41</file>
+          <file> 62 58 18 51 36 6 25 13 11 24 46 34 45 61 0 4 64 47 40 39 20 44 16</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 31 34 43 17 29 16 27 40 41</file>
+          <file> 62 58 18 51 36 6 25 13 43 11 24 46 34 45 61 0 4 64 47 40 39 20 44 16</file>
         </tool>
       </inputs>
     </file>
@@ -618,9 +359,318 @@
       <outputs>
         <tool>
           <name>XLINK</name>
-          <file> 19</file>
+          <file> 27</file>
         </tool>
       </outputs>
+    </file>
+  </configuration>
+  <configuration>
+    <name>Release</name>
+    <outputs>
+      <file>$PROJ_DIR$\basic\Clock.h</file>
+      <file>$PROJ_DIR$\basic\EXIT.c</file>
+      <file>$PROJ_DIR$\basic\EXIT.h</file>
+      <file>$PROJ_DIR$\basic\Clock.c</file>
+      <file>$PROJ_DIR$\basic\flash.h</file>
+      <file>$PROJ_DIR$\basic\flash.c</file>
+      <file>$TOOLKIT_DIR$\config\lnk430F5438.xcl</file>
+      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
+      <file>$PROJ_DIR$\user\mlx90614.c</file>
+      <file>$PROJ_DIR$\basic\IIC.h</file>
+      <file>$PROJ_DIR$\basic\SPI.h</file>
+      <file>$PROJ_DIR$\basic\IIC.c</file>
+      <file>$PROJ_DIR$\basic\uart.c</file>
+      <file>$PROJ_DIR$\user\mlx90614.h</file>
+      <file>$PROJ_DIR$\basic\SCI.c</file>
+      <file>$PROJ_DIR$\main.h</file>
+      <file>$PROJ_DIR$\user\Fstring.c</file>
+      <file>$PROJ_DIR$\user\SIM800.c</file>
+      <file>$PROJ_DIR$\basic\SPI.c</file>
+      <file>$TOOLKIT_DIR$\config\multiplier32_loc2.xcl</file>
+      <file>$TOOLKIT_DIR$\inc\in430.h</file>
+      <file>$TOOLKIT_DIR$\inc\msp430x54x.h</file>
+      <file>$PROJ_DIR$\main.c</file>
+      <file>$PROJ_DIR$\basic\SCI.h</file>
+      <file>$PROJ_DIR$\Release\Obj\EXIT.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdio.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\sysmac.h</file>
+      <file>$PROJ_DIR$\Release\Obj\SIM800.r43</file>
+      <file>$TOOLKIT_DIR$\inc\clib\string.h</file>
+      <file>$PROJ_DIR$\Release\Obj\CEWEN.pbd</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdarg.h</file>
+      <file>$PROJ_DIR$\Release\Obj\IIC.r43</file>
+      <file>$PROJ_DIR$\Release\Obj\SPI.r43</file>
+      <file>$PROJ_DIR$\Release\Obj\SPI.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\main.r43</file>
+      <file>$PROJ_DIR$\Release\Obj\EXIT.r43</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdlib.h</file>
+      <file>$PROJ_DIR$\Release\Obj\SIM800.pbi</file>
+      <file>$PROJ_DIR$\Release\Exe\CEWEN.txt</file>
+      <file>$PROJ_DIR$\Release\Obj\SCI.r43</file>
+      <file>$PROJ_DIR$\Release\Obj\SCI.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\IIC.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\uart.pbi</file>
+      <file>$TOOLKIT_DIR$\lib\clib\cl430xsf.r43</file>
+      <file>$PROJ_DIR$\Release\Obj\mlx90614.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\mlx90614.r43</file>
+      <file>$PROJ_DIR$\Release\Obj\flash.r43</file>
+      <file>$PROJ_DIR$\Release\Obj\uart.r43</file>
+      <file>$PROJ_DIR$\Release\Obj\Fstring.r43</file>
+      <file>$PROJ_DIR$\Release\Obj\Fstring.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\flash.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\Clock.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\Clock.r43</file>
+    </outputs>
+    <file>
+      <name>$PROJ_DIR$\basic\EXIT.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 24</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 35</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 21 20 7 36 26 25 30 2</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 21 20 7 36 26 25 30 2</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\basic\Clock.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 52</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 53</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 21 20 7 36 26 25 30 0</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 21 20 7 36 26 25 30 0</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\basic\flash.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 51</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 47</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 21 20 7 36 26 25 30 4</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 21 20 7 36 26 25 30 4</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\user\mlx90614.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 45</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 46</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 21 20 7 36 26 25 30 9 13</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 21 20 7 36 26 25 30 9 13</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\basic\IIC.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 42</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 31</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 21 20 7 36 26 25 30 9</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 21 20 7 36 26 25 30 9</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\basic\uart.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 43</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 48</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\basic\SCI.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 40</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 39</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 21 20 7 36 26 25 30 28 23</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 21 20 7 36 26 25 30 28 23</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\user\Fstring.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 50</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 49</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\user\SIM800.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 37</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 27</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\basic\SPI.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 33</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 32</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 21 20 7 36 26 25 30 28 10</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 21 20 7 36 26 25 30 28 10</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\main.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 41</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 34</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 21 20 7 15 36 26 25 30 0 4 23 28 10 9 13</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 21 20 7 15 36 26 25 30 0 4 23 28 10 9 13</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 38</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Release\Obj\CEWEN.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 52 24 42 40 33 51 41 45</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Release\Exe\CEWEN.txt</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 6 19 53 35 31 39 32 47 34 46 44</file>
+        </tool>
+      </inputs>
     </file>
     <forcedrebuild>
       <name>[MULTI_TOOL]</name>

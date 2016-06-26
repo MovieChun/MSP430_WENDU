@@ -13,8 +13,8 @@
 #ifndef _clock_h_
 #define _clock_h_
 
-#define  TIME   (500 - 1)         //2s定时  
-
+//#define  TIME   (500 - 1)         //2s定时  
+#define  TIME   (250 - 1)           //1s定时  
 
 // 主时钟设置选项，可选择内部DCO或外部高频晶振
 #define  EXTERNAL_HF_OSC           //使用外部时钟源  
@@ -23,7 +23,12 @@ extern void Init_CLK(void);        //时钟初始化函数
 extern void Init_Timer0_A5(void);  //定时器初始化
 extern void Init_Timer1_A3(void);
 
-extern char* TIM1_delay(unsigned int ms);  //中断延时,单位ms
-extern char delay_flag;    //延时结束标志为0
+
+extern char uart1_flag;         //串口1延时标志，0表示不再延时 
+extern char uart2_flag;         //串口2延时标志，0表示不再延时 
+
+extern char* UART1_delay(unsigned int ms);
+extern char* UART2_delay(unsigned int ms);
+extern void  Delay_ms(unsigned int ms);
 
 #endif

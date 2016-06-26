@@ -101,9 +101,11 @@ void Init_Timer0_A5(void)
 //  Init_TimerA1(void): 设置TimerA1                                          //
 //  1MS的精确定时                                                                         //
 //***************************************************************************//
-unsigned int delay_ms = 0;
-char delay_flag = 0;
-
+unsigned int delay_ms = 0;   //精确延时
+unsigned int uart1_ms = 0;   //串口1的接收延时
+unsigned int uart2_ms = 0;   //串口2的接收延时
+char uart1_flag = 0;         //串口1延时标志，0表示不再延时 
+char uart2_flag = 0;         //串口2延时标志，0表示不再延时 
 
 void Init_Timer1_A3(void)
 {  
@@ -119,23 +121,40 @@ void Init_Timer1_A3(void)
 
 
 
-char* TIM1_delay(unsigned int ms){
-    delay_ms = ms;
-    delay_flag = 1;
-    TA1CTL  |= MC0; // 启动定时器
-    return &delay_flag;
+char* UART1_delay(unsigned int ms){
+    uart1_ms = ms;
+    uart1_flag = 1;
+    TA1CTL  |= MC0;      // 启动定时器
+    return &uart1_flag;
 }
 
+char* UART2_delay(unsigned int ms){
+    uart2_ms = ms;
+    uart2_flag = 1;
+    TA1CTL  |= MC0;      // 启动定时器
+    return &uart2_flag;
+}
+
+void Delay_ms(unsigned int ms){  //1ms延时函数
+   delay_ms = ms;
+   TA1CTL  |= MC0;       // 启动定时器
+   while(delay_ms);
+}
+
+#include "uart.h"
 
 #pragma vector=TIMER1_A0_VECTOR                             
 __interrupt void Timer1_A0 (void)
 {
-  if(delay_ms > 0){
-      delay_ms--;
-  }
-  else{
-      delay_flag = 0;   //延时标志复位
+  if(delay_ms > 0)delay_ms--;
+  
+  if(uart1_ms > 0)uart1_ms--;
+  else uart1_flag = 0;   //延时标志复位
+      
+  if(uart2_ms > 0)uart2_ms--;
+  else uart2_flag = 0;   //延时标志复位
+  
+  if((delay_ms + uart2_flag + uart1_flag) == 0){//不需要延时功能
       TA1CTL  &= ~MC0;  //关闭定时器
-  }
-   
+  } 
 }

@@ -3,7 +3,6 @@
     说明：字符串处理
 ***********************************************/
 
-#include "msp430x54x.h"
 #include "Fstring.h"
 /***********************************************************************
 *  函数名：str_getchar(char str[],const char compare[] ,char get[])    *
@@ -83,5 +82,65 @@ int str_include(char str[],const char compare[]){
    if(0 == flag)cnt= -1;
    
    return cnt;  
+}
+
+
+/***************************************************************************
+   函数名：  getIP(char * str, unsigned char *ip, unsigned int * port)
+   说明  ：  获取IP地址，带有ip地址校验
+			 字符串格式为 IP:255.255.255.255,500
+			 所有符号都采用英文半角符号，不留有空格
+   参数  ：  str ——命令字符串
+			 ip  ——ip地址数组
+			 port——端口号地址
+
+   输出  ： 错误类型
+            error = 0  : 输入无误，ip地址，端口号已更改
+			errer = 1  : ip地址无效
+			error = 2  : 找不到ip命令
+
+***************************************************************************/
+
+char getIP(char * str, const char* command,unsigned char *ip, unsigned int * port){
+	char error = 0;
+	int a = 0;
+	unsigned int n = 0;
+	unsigned data[4];
+
+	a = str_include(str, command);                        //查看帧头
+	if (a != -1){                                       //接收到修改ip指令
+		str += a;
+		for (int i = 0; i < 4;){                        //前四个数字是ip地址，第五个是端口号
+			n = 0;
+			while (*str >= '0' && *str <= '9'){         //将字符串转化成数字
+				n = n * 10 + *str - '0';
+				str++;
+			}
+			if (n < 255){ data[i] =(unsigned char) n; }  //如果大于255，则说明是无效的ip地址
+			else{
+				error = 1;                               //error = 1 表示地址不对
+				break;
+			}
+			if (*str == '.' || *str == ',')i++;          //遇上这两个符号移到下一位
+			else {
+				error = 1;                               //没收到“.”说明不是ip地址
+				break;
+			}
+			str++;
+		}
+		if (0 == error){                                //ip地址无误，接收端口号
+			n = 0;
+			while (*str >= '0' && *str <= '9'){
+				n = n * 10 + *str - '0';
+				str++;
+			}
+			*port = n;                                 //更改端口号
+			for (int i = 0; i < 4; i++){               //更改ip地址
+				ip[i] = data[i];
+			}
+		}
+	}
+	else error = 2;                                   //指令错误
+	return error;
 }
 
