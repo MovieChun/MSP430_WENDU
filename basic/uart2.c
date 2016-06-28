@@ -127,16 +127,16 @@ void UART2_send_float(float f2)
   unsigned int num;
   
   if(f2 < 0){
-     UART_send("-");
+     UART2_send("-");
      f2 = -f2;
   }
   
   num = (unsigned int)f2;
-  UART_send_num(num);
-  UART_send(".");
+  UART2_send_num(num);
+  UART2_send(".");
   num = (unsigned int)(100 * f2) % 100;
-  if(num < 10)UART_send("0");
-  UART_send_num(num);
+  if(num < 10)UART2_send("0");
+  UART2_send_num(num);
 }
 
 

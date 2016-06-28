@@ -4,7 +4,7 @@
 
 
 
-#define RECMAX  512   //接收区容量
+
 
 #define  com_start()      UART_send("AT+")  //命令开始
 #define  com_send         UART_send         //发送字符

@@ -7,7 +7,7 @@
 #include "Fstring.h"
 #include <stdlib.h>
 #include <stdio.h>
-
+#define RECMAX  512   //接收区容量
 #define SIM_DEBUG   //开启调戏模式
 
 int  uart_num = 0;      //串口接收数量

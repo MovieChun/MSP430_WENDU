@@ -8,8 +8,8 @@
        ±º‰  £∫2016.05.23
       ≤π≥‰  £∫“—≤‚ ‘
 **********************************************************************/
-#ifndef _uart_h_
-#define _uart_h_
+#ifndef _uart2_h_
+#define _uart2_h_
 
 #include <stdlib.h>
 #include <stdio.h>

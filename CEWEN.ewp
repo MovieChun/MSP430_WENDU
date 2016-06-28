@@ -1911,6 +1911,9 @@
     <file>
       <name>$PROJ_DIR$\basic\uart.c</name>
     </file>
+    <file>
+      <name>$PROJ_DIR$\basic\uart2.c</name>
+    </file>
   </group>
   <group>
     <name>USER</name>
@@ -1922,6 +1925,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\user\SIM800.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\user\wifi.c</name>
     </file>
   </group>
   <file>
