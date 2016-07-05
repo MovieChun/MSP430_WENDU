@@ -141,6 +141,38 @@ char getIP(char * str, const char* command,unsigned char *ip, unsigned int * por
 		}
 	}
 	else error = 2;                                   //指令错误
+        
 	return error;
 }
+
+
+/***************************************************************************
+   函数名：  char getphone(char *str ,char *phone,char *command)
+   说明  ：  获取IP地址，带有ip地址校验
+			 字符串格式为 IP:255.255.255.255,500
+			 所有符号都采用英文半角符号，不留有空格
+   参数  ：  str ——命令字符串
+			 ip  ——ip地址数组
+			 port——端口号地址
+
+   输出  ： 错误类型
+            error = 0  : 输入无误，ip地址，端口号已更改
+			errer = 1  : ip地址无效
+			error = 2  : 找不到ip命令
+
+***************************************************************************/
+char getphone(char *str ,char *phone,char *command){
+  char cnt = 0;
+  int a;
+  a = str_include(str, command);                        //查看帧头
+    if (a != -1){                                       //接收到修改ip指令
+        str += a;
+        for(cnt = 0;cnt < 11 && *str >= '0' && *str <= '9';cnt++){
+           *phone++ = *str++;
+        }
+    }
+  return 0;
+}
+
+
 

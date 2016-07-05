@@ -6,7 +6,7 @@
 #include "Fstring.h"
 #include "wifi.h"
 
-#define wifi_DEBUG       //开启调戏模式
+//#define wifi_DEBUG       //开启调戏模式
 #define REMAX     512    //接收区容量
 
 int  uart2_num = 0;      //串口接收数量
@@ -42,17 +42,23 @@ wifi模块备忘录：
 char  wifi_start(void){
       char error = 2;
       int length = 0;
-      
+     
       UART2_send("+++");    //发送"+++"和"a"进入命令模式 
       wifi_getf = 0;
       UART2_delay(10);
-      while(uart2_flag == 0);
+      while(uart2_flag);
+     
+      UART2_send("a");       
+      UART2_delay(10);
+      while(uart2_flag);
       
       if(1 == wifi_getf){
             error = 1;           //收到信号但不是OK 说明命令指令错误
-            length = str_include(wifi_data,"a");
-            if( -1 != length){
-                UART2_send("a");
+            //SCI_send("\n--------");
+            //SCI_send(wifi_data);
+            //SCI_send("\n");
+            length = str_include(wifi_data,"OK");
+            if( -1 != length){              
                 error = 0;      //能收到OK 说明状态返回不正确
             }
       }      
@@ -78,14 +84,16 @@ char  wifi_end(char mode){
       char error = 2;
       int length = 0;
       
+      UART2_delay(1);
       if(mode == 0)UART2_send("AT+ENTM\n");    //退出命令模式
       else UART2_send("AT+Z\n");    //退出命令模式
       wifi_getf = 0;
       UART2_delay(10);
-      while(uart2_flag == 0);
+      while(uart2_flag);
       
       if(1 == wifi_getf){
             error = 1;           //收到信号但不是OK 说明命令指令错误
+            
             length = str_include(wifi_data,"OK");
             if( -1 != length){
                  error = 0;      //能收到OK 说明状态返回不正确
@@ -124,13 +132,17 @@ char  wifi_command(char *command , char* data,char mode){
       UART2_send("\n");
       
       wifi_getf = 0;
-      UART2_delay(10);
-      while(uart2_flag == 0);
+      UART2_delay(100);
+      while(uart2_flag);
       
       if(1 == wifi_getf){
             error = 1;           //收到信号但不是OK 说明命令指令错误
-            if(mode == 1)length = str_include(wifi_data,data);
-            else  length = str_include(wifi_data,"OK");
+            //SCI_send("\n--------");
+            //SCI_send(wifi_data);
+            //SCI_send("---------\n");
+            
+            if(mode == 1) length = str_include(wifi_data,"OK");
+            else length = str_include(wifi_data,data);
             if( -1 != length){
                  error = 0;      //能收到OK 说明状态返回不正确
             }
@@ -203,10 +215,10 @@ char wifi_IP(unsigned char *ip,unsigned int port){
 ******************************************************************/
 char wifi_AP(char *name,char *password){
      char error = 2;
-      
+     
      UART2_send("AT+WSTA=");   //写入名字和密码
      UART2_send(name);
-     UART2_send(".");
+     UART2_send(",");
      UART2_send(password);
      UART2_send("\n");
      wifi_getf = 0;
@@ -256,8 +268,23 @@ char SearchAP(char* name){
 }
 
 
-
-
+/******************************************************************
+    函数名：wifi_TCPtest()
+    功能：查看链接状态
+    参数：无
+    返回：错误类型  0  TCP未连接
+                    1  TCP连接中
+                    2  没有返回
+******************************************************************/
+char wifi_TCPtest(void){
+  char error;
+  wifi_start();                   //进入命令模式
+  error = wifi_command("SOCKLKA" ,"DISCONNECTED",0); //只能检测无法连接的情况
+                                  //DISCONNECTED 包含 CONNECTED 
+  wifi_end(0);                    //返回透传模式
+  return error;                   //0 未连接，1 已连接
+  
+}
 
 
 

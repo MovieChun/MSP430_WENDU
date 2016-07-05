@@ -22,11 +22,11 @@
 #define UART_RXD   BIT5
 
 
-
 extern void UART_init(void);                       //串口初始化  高速精确模式
 extern void UART_send(char *tx_buf);               //发送字符串函数
 extern void UART_send2(char *tx_buf,char num);     //发送数组函数
 extern void UART_send_num(unsigned int num);       //发送数组函数
 extern void UART_send_char(char tx_buf);            //发送一个字符
+extern void UART_send_float(float f2);
 
 #endif

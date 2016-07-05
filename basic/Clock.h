@@ -13,8 +13,9 @@
 #ifndef _clock_h_
 #define _clock_h_
 
-//#define  TIME   (500 - 1)         //2s定时  
-#define  TIME   (250 - 1)           //1s定时  
+//#define  TIME   (15000 - 1)         //1min定时 
+#define  TIME   (2500 - 1)         //10s定时  
+//#define  TIME   (250 - 1)           //1s定时  
 
 // 主时钟设置选项，可选择内部DCO或外部高频晶振
 #define  EXTERNAL_HF_OSC           //使用外部时钟源  

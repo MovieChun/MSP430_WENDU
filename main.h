@@ -15,6 +15,6 @@
 
 #include "mlx90614.h"
 #include "SIM800.h"
-
-
+#include "wifi.h"
+#include "Fstring.h"
 #endif

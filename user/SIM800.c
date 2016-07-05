@@ -7,8 +7,7 @@
 #include "Fstring.h"
 #include <stdlib.h>
 #include <stdio.h>
-#define RECMAX  512   //接收区容量
-#define SIM_DEBUG   //开启调戏模式
+
 
 int  uart_num = 0;      //串口接收数量
 char uart_error = 0;    //数据溢出最大错误
@@ -154,17 +153,10 @@ char SIM800_test(void){
 
 
 char SIM800_init(void){
-     char ok = 0;
- 
-     char get[10] = "ab";
-     
-       //while(SIM_command( "CGREG=1","\0"));
-       //while(SIM_comGet( "CGREG?","+CGREG: 1,?",get)); //? 1表示已经连接  5表示漫游
-       //while(SIM_command( "CIPSTATUS","OK"));  //查看链接状态
-
-      SIM_command( "CGREG=1","\0");
-      SIM_comGet( "CGREG?","+CGREG: 1,?",get);
-      SIM_command( "CIPSTATUS","OK");
+     char ok = 0; 
+     char get[10] = "ab";      
+     SIM_comGet( "CGREG?","+CGREG: 1,?",get);
+      
      return ok;
 }
 
@@ -176,7 +168,7 @@ char SIM800_init(void){
 char SIM800_Getip(unsigned char *ip,unsigned int port ){
      char ok = 0;
      
-     UART_send("AT+CIPSTART = \"TCP\",\"");
+     UART_send("AT+CIPSTART=\"TCP\",\"");
      
      UART_send_num(ip[0]);
      UART_send(".");
@@ -255,3 +247,17 @@ __interrupt void USCI_A3_ISR(void)
 }
 
 
+//--------------短信--------------------------
+char note_send(char *phone , char*str){   //AT+CMGS="+8618712760783"
+      com_end();      //先把上个命令清空
+      com_start();
+      com_send("AT+CMGS=\"");
+      com_send(phone); 
+      com_send("\"");
+      com_end();
+      
+      com_send(str);
+      UART_send_char(0x1a); //发送截止符
+      
+      return 0; 
+}

@@ -81,3 +81,20 @@ char MLX_ReadT(unsigned char command ,float *Tdata){
     return c[2];
 }
 
+
+/**********************************************************
+      函数名：MLX_RT
+      说明  ：温度读取
+      参数  ：无
+      输出  ：外部温度值
+***********************************************************/
+
+float MLX_RT(void){
+    unsigned int data;
+    float Tdata = 0;
+    char c[3];
+    IIC_readpage(TOBJ1 , c , 3 );
+    data = (unsigned int)c[1]<< 8 | c[0];
+    Tdata =((float)data * 2 - 27315)/100;  
+    return Tdata;
+}

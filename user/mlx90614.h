@@ -21,4 +21,6 @@ extern char MLX_Write(unsigned char command , unsigned int data);
 extern char MLX_Read(unsigned char command ,unsigned int *data);
 extern char MLX_ReadT(unsigned char command ,float *Tdata);
 
+extern float MLX_RT(void); //外部温度读取
+
 #endif

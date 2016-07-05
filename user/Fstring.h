@@ -41,4 +41,6 @@ extern int str_include(char str[],const char compare[]);
 
 extern char getIP(char * str, const char* command,unsigned char *ip, unsigned int * port);
 
+
+extern char getphone(char *str ,char *phone,char *command);
 #endif
