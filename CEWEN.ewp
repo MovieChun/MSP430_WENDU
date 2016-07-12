@@ -1903,12 +1903,6 @@
       <name>$PROJ_DIR$\basic\SCI.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\basic\SPI.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\basic\SPI.h</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\basic\uart.c</name>
     </file>
     <file>

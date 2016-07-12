@@ -19,7 +19,7 @@ char SIM_data[RECMAX];  //SIM模块数据接收数组
 
 //命令发送结束语句
 void com_end(void){
-     UART_send("\n");        //发送截止符
+     UART_send("\r\n");        //发送截止符
      SIM_getf = 0;           //接收数组归位
      UART1_delay(10);  //最长等待10ms
      while(uart1_flag);      //等待数据接收完成，若无返回则10ms后退出      
@@ -38,7 +38,7 @@ char  SIM_command(const char*command ,const char* recomm){
       char error = 2;
       int length = 0;
       
-      com_end();      //先把上个命令清空
+      //com_end();      //先把上个命令清空
       com_start();
       com_send((char*)command);
       com_end();
@@ -55,7 +55,9 @@ char  SIM_command(const char*command ,const char* recomm){
         SCI_send(SIM_data);
 #endif
       
-      return error;
+      //return error;
+        if(0 == error)return 1;
+        else return 0;
 }
 
 
@@ -88,41 +90,34 @@ char  SIM_comGet(const char*command ,const char* recomm,char *get){
 #ifdef SIM_DEBUG
         SCI_send(SIM_data);
 #endif
-      return error;
+      //return error;
+        if(0 == error)return 1;
+        else return 0;
 }
 
 
 /******************************************************************
     函数名：SIM_DelayRecom(unsigned int ms ,const char *recomm)
     功能： 延时查看返回的字符串
-    参数： ms   等待时间
+    参数：
            recomm  比对字符串
-    返回：错误类型  0  没有错误
-                    1  返回不符
-                    2  没有返回
+    返回： 0  错误
+           1  正确
 ******************************************************************/
-char SIM_DelayRecom(unsigned int ms ,const char *recomm){
-     char error = 2;
-     
-     UART1_delay(ms);
-     while(uart1_flag);
-     if(1 == SIM_getf){          //已经收到数据
-       error = 1;
+char SIM_DelayRecom(const char *recomm){
+     char ok = 0;
+    
        if(-1 != str_include(SIM_data,recomm)){
-         error = 0;
-         //SIM_getf = 0;
+         ok = 1;
        }
-     }    
-     
-     
+         
 #ifdef SIM_DEBUG
        SCI_send(SIM_data);
-       if(error == 0)SCI_send("  test ok\n");
-       else SCI_send("  test no\n");
 #endif     
      
-     return error;
+     return ok;
 }
+
 /******************************************************************
     函数名：SIM800_test(void)
     功能： 测试是否连接上模块
@@ -139,6 +134,7 @@ char SIM800_test(void){
        error = 1;
        if(-1 != str_include(SIM_data,"OK"))error = 0;
      }
+       SIM_getf = 0;
 
 #ifdef SIM_DEBUG
         SCI_send(SIM_data);
@@ -206,6 +202,7 @@ char GPRS_Start(void){
   return error;
 }
 
+
 char GPRS_SendEnd(void){
     UART_send_char(0x1a); //发送截止符
      
@@ -249,7 +246,7 @@ __interrupt void USCI_A3_ISR(void)
 
 //--------------短信--------------------------
 char note_send(char *phone , char*str){   //AT+CMGS="+8618712760783"
-      com_end();      //先把上个命令清空
+      //com_end();      //先把上个命令清空
       com_start();
       com_send("AT+CMGS=\"");
       com_send(phone); 

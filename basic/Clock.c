@@ -37,7 +37,7 @@ void Init_CLK(void)
   UCSCTL6   |= XCAP_3                                     ; // 设置内部负载电容
   UCSCTL3   |= SELREF_2                                   ; // FLLref = REFO
   UCSCTL4   |= SELA_0                                     ; // ACLK=XT1,SMCLK=DCO,MCLK=DCO
-  UCSCTL5   |= DIVA2                                      ;  //ACLK16分频  0.5K
+  //UCSCTL5   |= DIVA2                                      ;  //ACLK不分频 32k
   do
   {
     UCSCTL7 &= ~(XT2OFFG + XT1LFOFFG + XT1HFOFFG + DCOFFG); // 清除 XT2,XT1,DCO 错误标志                                                          
@@ -89,7 +89,7 @@ void Init_Timer0_A5(void)
   TA0CTL   = TASSEL0 + ID1 + ID0 + TACLR                   ; // 复位Timer0_A5, 分频系数设置为8
                                                           // 计数器清0
                                                           // 计数时钟设为ACLK                                                          ;
-  TA0CCR0  =  TIME                                         ; // SMCK=EX2=16MHz，设置计数器溢出时间为1ms  16位
+  TA0CCR0  =  TIME                                         ; 
   TA0CCTL0 = 0                                               // 初始化捕获控制
            | (1 << 4)                                      ; // 使能比较中断
   TA0CTL  |= MC0                                           ; // 设置计数器为加计数，启动*/
@@ -104,15 +104,17 @@ void Init_Timer0_A5(void)
 unsigned int delay_ms = 0;   //精确延时
 unsigned int uart1_ms = 0;   //串口1的接收延时
 unsigned int uart2_ms = 0;   //串口2的接收延时
+unsigned int SCI_ms = 0;
 char uart1_flag = 0;         //串口1延时标志，0表示不再延时 
-char uart2_flag = 0;         //串口2延时标志，0表示不再延时 
+char uart2_flag = 0;         //串口2延时标志，0表示不再延时
+char SCI_flag = 0;
 
 void Init_Timer1_A3(void)
 {  
-  TA1CTL   = TASSEL0 + TACLR                              ; // 复位Timer1_A3, 分频系数设置为1
+  TA1CTL   = TASSEL0 + TACLR                               ; // 复位Timer1_A3, 分频系数设置为1
                                                              // 计数器清0
                                                              // 计数时钟设为ACLK                                                          ;
-  TA1CCR0  =  1                                            ; // ACLK=32K，设置计数器溢出时间为1ms  16位
+  TA1CCR0  =  31                                            ; // 设置计数器溢出时间为1ms  
   TA1CCTL0 = 0                                               // 初始化捕获控制
            | (1 << 4)                                      ; // 使能比较中断
   TA1CTL  |= MC0                                           ; // 设置计数器为加计数，启动*/
@@ -135,11 +137,22 @@ char* UART2_delay(unsigned int ms){
     return &uart2_flag;
 }
 
+
+char* SCI_delay(unsigned int ms){
+    SCI_ms = ms;
+    SCI_flag = 1;
+    TA1CTL  |= MC0;      // 启动定时器
+    return &SCI_flag;
+}
+
+
 void Delay_ms(unsigned int ms){  //1ms延时函数
    delay_ms = ms;
    TA1CTL  |= MC0;       // 启动定时器
    while(delay_ms);
 }
+
+
 
 #include "uart.h"
 
@@ -154,7 +167,10 @@ __interrupt void Timer1_A0 (void)
   if(uart2_ms > 0)uart2_ms--;
   else uart2_flag = 0;   //延时标志复位
   
-  if((delay_ms + uart2_flag + uart1_flag) == 0){//不需要延时功能
+  if(SCI_ms > 0)SCI_ms--;
+  else SCI_flag = 0;   //延时标志复位
+  
+  if((delay_ms + uart2_flag + uart1_flag + SCI_flag) == 0){//不需要延时功能
       TA1CTL  &= ~MC0;  //关闭定时器
   } 
 }

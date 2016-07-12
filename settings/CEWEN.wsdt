@@ -12,54 +12,32 @@
           
           
           
-        <Column0>201</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+        <Column0>150</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
       </Workspace>
       <Build>
         
         
         
         
-      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>980</ColumnWidth1><ColumnWidth2>261</ColumnWidth2><ColumnWidth3>65</ColumnWidth3></Build>
-    <Debug-Log><ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1307</ColumnWidth1></Debug-Log></Static>
+      <PreferedWindows><Position>3</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows/></PreferedWindows><ColumnWidth0>20</ColumnWidth0><ColumnWidth1>980</ColumnWidth1><ColumnWidth2>261</ColumnWidth2><ColumnWidth3>65</ColumnWidth3></Build>
+    <Debug-Log><ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1307</ColumnWidth1><PreferedWindows><Position>3</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows><Window><Factory>Build</Factory></Window></Windows></PreferedWindows></Debug-Log></Static>
     <Windows>
       
       
-    <Wnd0>
-        <Tabs>
-          <Tab>
-            <Identity>TabID-20632-7395</Identity>
-            <TabName>Workspace</TabName>
-            <Factory>Workspace</Factory>
-            <Session>
-              
-            <NodeDict><ExpandedNode>CEWEN</ExpandedNode><ExpandedNode>CEWEN/BASIC</ExpandedNode><ExpandedNode>CEWEN/USER</ExpandedNode></NodeDict></Session>
-          </Tab>
-        </Tabs>
-        
-      <SelectedTab>0</SelectedTab></Wnd0><Wnd1>
-        <Tabs>
-          <Tab>
-            <Identity>TabID-12330-7960</Identity>
-            <TabName>Build</TabName>
-            <Factory>Build</Factory>
-            <Session/>
-          </Tab>
-        <Tab><Identity>TabID-30027-30884</Identity><TabName>Debug Log</TabName><Factory>Debug-Log</Factory><Session/></Tab></Tabs>
-        
-      <SelectedTab>0</SelectedTab></Wnd1></Windows>
+    <Wnd0><Tabs><Tab><Identity>TabID-1552-10244</Identity><TabName>Workspace</TabName><Factory>Workspace</Factory><Session><NodeDict><ExpandedNode>CEWEN</ExpandedNode><ExpandedNode>CEWEN/BASIC</ExpandedNode><ExpandedNode>CEWEN/USER</ExpandedNode></NodeDict></Session></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd0><Wnd1><Tabs><Tab><Identity>TabID-25266-11028</Identity><TabName>Build</TabName><Factory>Build</Factory><Session/></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd1></Windows>
     <Editor>
       
       
       
       
-    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\main.c</Filename><XPos>0</XPos><YPos>156</YPos><SelStart>4751</SelStart><SelEnd>4751</SelEnd></Tab><ActiveTab>0</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\main.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>283</SelStart><SelEnd>283</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\user\SIM800.c</Filename><XPos>0</XPos><YPos>247</YPos><SelStart>6120</SelStart><SelEnd>6120</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\user\SIM800.h</Filename><XPos>0</XPos><YPos>27</YPos><SelStart>1050</SelStart><SelEnd>1050</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\user\wifi.c</Filename><XPos>0</XPos><YPos>315</YPos><SelStart>122</SelStart><SelEnd>122</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\basic\Clock.h</Filename><XPos>0</XPos><YPos>24</YPos><SelStart>499</SelStart><SelEnd>499</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\user\Fstring.c</Filename><XPos>0</XPos><YPos>93</YPos><SelStart>3368</SelStart><SelEnd>3368</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\user\Fstring.h</Filename><XPos>0</XPos><YPos>12</YPos><SelStart>1050</SelStart><SelEnd>1050</SelEnd></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\user\SIM800.h</Filename><XPos>0</XPos><YPos>12</YPos><SelStart>421</SelStart><SelEnd>421</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\user\wifi.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>1548</SelStart><SelEnd>1548</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\main.c</Filename><XPos>0</XPos><YPos>47</YPos><SelStart>1605</SelStart><SelEnd>1605</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\user\SIM800.c</Filename><XPos>0</XPos><YPos>44</YPos><SelStart>1434</SelStart><SelEnd>1434</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\basic\SCI.c</Filename><XPos>0</XPos><YPos>24</YPos><SelStart>4235</SelStart><SelEnd>4235</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\basic\uart.c</Filename><XPos>0</XPos><YPos>34</YPos><SelStart>1608</SelStart><SelEnd>1608</SelEnd></Tab><ActiveTab>5</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\basic\uart.h</Filename><XPos>0</XPos><YPos>18</YPos><SelStart>658</SelStart><SelEnd>682</SelEnd></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
     <Positions>
       
       
       
       
       
-    <Top><Row0><Sizes><Toolbar-04f1f6b8><key>iaridepm.enu1</key></Toolbar-04f1f6b8></Sizes></Row0></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>514</Bottom><Right>275</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>146413</sizeHorzCX><sizeHorzCY>291971</sizeHorzCY><sizeVertCX>202782</sizeVertCX><sizeVertCY>753285</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>126</Bottom><Right>1368</Right><x>-2</x><y>-2</y><xscreen>1370</xscreen><yscreen>128</yscreen><sizeHorzCX>1002928</sizeHorzCX><sizeHorzCY>186861</sizeHorzCY><sizeVertCX>146413</sizeVertCX><sizeVertCY>291971</sizeVertCY></Rect></Wnd1></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+    <Top><Row0><Sizes><Toolbar-046f04e8><key>iaridepm.enu1</key></Toolbar-046f04e8></Sizes></Row0></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>506</Bottom><Right>224</Right><x>-2</x><y>-2</y><xscreen>142</xscreen><yscreen>136</yscreen><sizeHorzCX>103953</sizeHorzCX><sizeHorzCY>198540</sizeHorzCY><sizeVertCX>165447</sizeVertCX><sizeVertCY>741606</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>134</Bottom><Right>1368</Right><x>-2</x><y>-2</y><xscreen>1370</xscreen><yscreen>136</yscreen><sizeHorzCX>1002928</sizeHorzCX><sizeHorzCY>198540</sizeHorzCY><sizeVertCX>103953</sizeVertCX><sizeVertCY>198540</sizeVertCY></Rect></Wnd1></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
   </Desktop>
 </Workspace>
 

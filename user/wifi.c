@@ -6,8 +6,6 @@
 #include "Fstring.h"
 #include "wifi.h"
 
-//#define wifi_DEBUG       //开启调戏模式
-#define REMAX     512    //接收区容量
 
 int  uart2_num = 0;      //串口接收数量
 char uart2_error = 0;    //数据溢出最大错误

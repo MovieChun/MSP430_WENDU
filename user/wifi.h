@@ -3,7 +3,7 @@
 #ifndef _wifi_h_
 #define _wifi_h_
 
-#define wifi_DEBUG               //开启调戏模式
+//#define wifi_DEBUG               //开启调戏模式
 #define REMAX        512          //接收区容量
 
 #define wifi_send        UART2_send        //发送字符串

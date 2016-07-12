@@ -28,11 +28,11 @@ void UART2_init(void)
   P5SEL          |= BIT7 + BIT6                                    ; // 选择引脚功能
   P5DIR          |= BIT6                                           ; // 选择引脚功能
   UCA1CTL1        = UCSWRST                                        ; // 状态机复位
-  UCA1CTL1       |= UCSSEL_2                                       ; // CLK = smclk
-  UCA1BR0         = 8                                              ; // 16mHz 
+  UCA1CTL1       |= UCSSEL_1                                       ; // CLK = ACLK  32K
+  UCA1BR0         = 3                                              ; // 16mHz 
   UCA1BR1         = 0x00                                           ; 
-  UCA1MCTL        = UCBRS_0 + UCBRF_11                              ; // UCBRSx=0, UCBRFx=11
-  UCA1MCTL       |= UCOS16                                         ; //开启16次采样
+  UCA1MCTL        = UCBRS_3 + UCBRF_0                               ; // UCBRSx=3, UCBRFx=0
+  //UCA1MCTL       |= UCOS16                                         ; //开启16次采样
   UCA1CTL1       &= ~UCSWRST                                       ; // 启动状态机
   UCA1IE         |= UCRXIE                                         ; // 允许接收中断
 }

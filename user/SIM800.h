@@ -23,7 +23,7 @@ extern char SIM_data[RECMAX];  //SIM模块数据接收数组
 extern char SIM800_test(void);                       //测试是否连接上SIM
 extern char SIM800_init(void);                       //SIM使能
 extern char SIM800_Getip(unsigned char *ip,unsigned port );   //写入IP和端口号
-extern char SIM_DelayRecom(unsigned int ms ,const char *recomm); //延时处理接收信息
+extern char SIM_DelayRecom(const char *recomm); //处理接收信息
 extern char SIM_command(const char*command ,const char* recomm);
 
 //------------GPRS发送函数------------

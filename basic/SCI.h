@@ -21,6 +21,13 @@
 #define SCI_TXD   BIT4
 #define SCI_RXD   BIT5
 
+#define SCI_MAX  512
+
+extern int SCI_num;
+extern char SCI_getf;
+extern char SCI_data[SCI_MAX];
+extern char SCI_error;
+
 extern char event_SCI, RXBuffer_SCI;              //获取标志位，接收的数据
 extern void SCI_init(void);                     //串口初始化  低速省电模式
 extern void SCI_send(char *tx_buf);               //发送字符串函数

@@ -14,7 +14,7 @@
 #define _clock_h_
 
 //#define  TIME   (15000 - 1)         //1min定时 
-#define  TIME   (2500 - 1)         //10s定时  
+#define  TIME   (2500*8 - 1)         //10s定时  
 //#define  TIME   (250 - 1)           //1s定时  
 
 // 主时钟设置选项，可选择内部DCO或外部高频晶振
@@ -27,9 +27,11 @@ extern void Init_Timer1_A3(void);
 
 extern char uart1_flag;         //串口1延时标志，0表示不再延时 
 extern char uart2_flag;         //串口2延时标志，0表示不再延时 
+extern char SCI_flag;          
 
 extern char* UART1_delay(unsigned int ms);
 extern char* UART2_delay(unsigned int ms);
+char* SCI_delay(unsigned int ms);
 extern void  Delay_ms(unsigned int ms);
 
 #endif

@@ -13,13 +13,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "SCI.h"
-
-/**********************************************
- 输出：event_SCI  接收标志位的最低位置位
-       UCA3RXBUF  接收到的一个字节         
-***********************************************/
-
-char  event_SCI, RXBuffer_SCI;
+#include "Clock.h"
 
 /***************************************************************************
                                                                            
@@ -37,11 +31,11 @@ void SCI_init(void)
   SCI_PORT_DIR    |= SCI_TXD                                       ; // 选择引脚功能
   
   UCA2CTL1        = UCSWRST                                        ; // 状态机复位
-  UCA2CTL1       |= UCSSEL_2                                       ; // CLK = smclk
-  UCA2BR0         = 8                                              ; // 16mHz 
+  UCA2CTL1       |= UCSSEL_1                                       ; // CLK = ACLK  32K
+  UCA2BR0         = 3                                              ; // 16mHz 
   UCA2BR1         = 0x00                                           ; 
-  UCA2MCTL        = UCBRS_0 + UCBRF_11                              ; // UCBRSx=0, UCBRFx=11
-  UCA2MCTL       |= UCOS16                                         ; //开启16次采样
+  UCA2MCTL        = UCBRS_3 + UCBRF_0                              ; // UCBRSx=0, UCBRFx=11
+  //UCA2MCTL       |= UCOS16                                         ; //开启16次采样
   UCA2CTL1       &= ~UCSWRST                                       ; // 启动状态机
   UCA2IE         |= UCRXIE                                         ; // 允许接收中断
 }
@@ -138,15 +132,29 @@ void SCI_send_float(float f2)
           UCA2RXBUF  接收到的一个字节       
 ***************************************************************************/
 
+int SCI_num = 0;
+char SCI_getf = 0;
+char SCI_data[SCI_MAX];
+char SCI_error = 0;
+
 #pragma vector=USCI_A2_VECTOR
 __interrupt void USCI_A2_ISR(void)
 {
   switch(__even_in_range(UCA2IV,4))
   {
   case 0:break                                                   ; // Vector 0 - no interrupt
-  case 2:                                                            // Vector 2 - RXIFG
-      RXBuffer_SCI   = UCA2RXBUF                                 ;
-      event_SCI     |= 0x01                                      ;
+  case 2:                                                          // Vector 2 - RXIF     
+      if(0 == SCI_getf)SCI_num = 0;
+        SCI_data[SCI_num++] = UCA2RXBUF;
+        SCI_data[SCI_num] = '\0';
+        SCI_getf = 1;
+        if(SCI_num < SCI_MAX - 1){
+             SCI_error = 0;
+             SCI_delay(10);                                         //10ms内没接收到新数据视为通信结束
+        }else {
+            SCI_num = SCI_MAX - 2;
+            SCI_error = 1;
+       }
       break                                                      ;
   case 4:break                                                     ;  // Vector 4 - TXIFG
   default: break                                                   ;  
