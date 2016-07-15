@@ -23,6 +23,7 @@ int main( void )
   float tem = 0;
   char SIM_ERR = 0;    //SIM卡连接标志
   char wifi_ERR = 0;   //wifi连接标志
+  char debug = 0;
   
   //Stop watchdog timer to prevent time out reset
   WDTCTL = WDTPW + WDTHOLD;
@@ -106,52 +107,59 @@ int main( void )
   cnt = 0;
   
   while(1){
-    if(SCI_getf == 1){   //wifi模块接收到信息
-         while(SCI_flag);
-         SCI_send(SCI_data);
-         UART_send(SCI_data);
-         UART1_delay(10);
-         while(uart1_flag);
-         SCI_send(SIM_data);
-         SCI_getf = 0;
-         
-       }
     
-    if(SIM_getf == 1){   //wifi模块接收到信息
-         SCI_send(SIM_data);
-         SIM_getf = 0;
-         
+    if(debug == 1){         //调节SIM模块
+       if(SCI_getf == 1){   
+          while(SCI_flag);
+          SCI_send(SCI_data);
+          if(-1 == str_include(SCI_data,"exit")){
+             UART_send(SCI_data);
+             UART1_delay(10);
+             while(uart1_flag);
+             SCI_send("---SIM::\n");
+             SCI_send(SIM_data);
+             SIM_getf = 0;
+             SCI_send("---end\n");
+          }else{
+            debug = 0;
+            SCI_send("exit ok\n");
+          }
+       SCI_getf = 0;
        }
-    
-    if(time == 1)
-    {   time = 0;
-       P4OUT |= BIT7;        //亮灯
-       /*
-       //tem = MLX_RT();       //温度读取，IIC未连接会卡死
-       if(SCI_getf == 1){   //wifi模块接收到信息
-         while(SCI_flag);
-         SCI_send(SCI_data);
-         SCI_getf = 0;
-       }
-    
-       if(wifi_getf == 1){   //wifi模块接收到信息
-         while(uart2_flag);
-         SCI_send(wifi_data);
-         wifi_getf = 0;
-       }
+    }else if(debug == 2){  //调节wifi模块          
+       if(SCI_getf == 1){   
+          while(SCI_flag);
+          SCI_send(SCI_data);
+          UART2_send(SCI_data);
+          UART2_delay(10);
+          while(uart2_flag);
+          SCI_send(wifi_data);
+          SCI_getf = 0;
+       }      
+   }
+   else{ 
+     if(SCI_getf == 1){   
+          while(SCI_flag);
+          SCI_send(SCI_data);
+          if(-1 != str_include(SCI_data,"sim debug")){
+           debug = 1;
+           SCI_send("sim ok\n");
+          }else if(-1 != str_include(SCI_data,"wifi debug")){
+            debug = 0;
+            SCI_send("wifi ok\n");
+          }
        
-       if(SIM_getf == 1){    //SIM卡接收到信息
-         
- 
-          SIM_getf = 0;  
+          SCI_getf = 0;
        }
-       
-       
       
-       SIM_ERR = SIM_command( "CIPSTATUS","CONNECT");  //检测SIM连接状况
+     
+     if(time == 1)
+       {   time = 0;
+          P4OUT |= BIT7; 
+          SIM_ERR = SIM_command( "CIPSTATUS","CONNECT");  //检测SIM连接状况
        
       // if( wifi_TCPtest())    //wifi连接，优先用wifi发送
-       {      //wifi模块连接中
+          {      //wifi模块连接中
              
              wifi_send("W温度");       //发送温度和序号
              wifi_send_num(cnt++); 
@@ -159,8 +167,8 @@ int main( void )
              wifi_send_float(tem);
              wifi_send("\n");
              
-             if(0 == SIM_ERR) wifi_send("SIM ERROR\n");  //如果SIM卡连接有问题，发送错误报告
-       }
+            if(0 == SIM_ERR) wifi_send("SIM ERROR\n");  //如果SIM卡连接有问题，发送错误报告
+         }
       // else
         if(0 == SIM_ERR){
           if(SIM_DelayRecom("PDP DEACT"))SIM_command("CIICR","OK");
@@ -169,10 +177,10 @@ int main( void )
           SIM800_Getip(IP,PORT);                   //如果没连接上，写入IP地址重新连接
                                //等待连接
           
-       }
-       else
-       {                        //wifi未连接，改为gprs发送
-             GPRS_Start();              //GPRS进入发送模式
+         }
+         else
+         {                        //wifi未连接，改为gprs发送
+              GPRS_Start();              //GPRS进入发送模式
          
              GPRS_Send("S温度");         //发送温度
              GPRS_SendNum(cnt++);
@@ -182,15 +190,12 @@ int main( void )
              GPRS_Send("\n----wifi断开-----\n");   //发送错误报告
              GPRS_SendEnd();            //发送数据
          
-       }
-             
-      */
-      
+       }   
        P4OUT &= ~BIT7;   //关闭灯 
        //__bis_SR_register(LPM4_bits);             // Enter LPM3
     
+      }
     }
-   
     
   }
   
