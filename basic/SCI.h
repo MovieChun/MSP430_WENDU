@@ -34,5 +34,5 @@ extern void SCI_send(char *tx_buf);               //发送字符串函数
 extern void SCI_send2(char *tx_buf,char num);     //发送数组函数
 extern void SCI_send_num(unsigned int num);       //发送整数
 extern void SCI_send_float(float f2);       //发送小数点后两位精度的浮点数
-
+extern void SCI_send_IP(unsigned char *ip ,unsigned int port);
 #endif

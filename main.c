@@ -6,14 +6,14 @@
 char flag = 0;
 char time = 0;
 
-unsigned char IP[4]={211,81,253,244};
-unsigned int PORT = 8000;
+unsigned char SIM_IP[4]={211,81,253,244};
+unsigned int SIM_PORT = 8000;
 char data[]="hallo world\n";
 
 char APname[20] = "DC411";
 char APkey[20] = "c411123456";
-unsigned char APip[4]={192,168,31,102};
-unsigned int  APport = 8000;
+unsigned char WIFI_IP[4]={192,168,31,102};
+unsigned int  WIFI_PORT = 8000;
 
 char phone[11];
 
@@ -61,7 +61,7 @@ int main( void )
       wifi_command("WANN", "DHCP",1);  //使用动态地址
       wifi_command("E", "OFF",1);    //关闭回显
       wifi_AP(APname,APkey);           //输入wifi名和密码
-      wifi_IP(APip,APport);            //AP用的是局内网
+      wifi_IP(WIFI_IP,WIFI_PORT);            //AP用的是局内网
       wifi_end(1);                     //重启wifi
    }
   
@@ -80,7 +80,7 @@ int main( void )
      //SIM_command( "CGREG=1","\0");
      SIM_command( "CIPSTATUS","OK");
      SIM_command("CIPCLOSE","CLOSED"); //成功返回 CLOSED，失败返回 ERROR  先关闭连接
-     SIM800_Getip(IP,PORT);
+     SIM800_Getip(SIM_IP,SIM_PORT);
     // SIM_command( "AT+CMGF=1","OK");  //以文本形式编辑短信
     // SIM_command( "AT+CNMI=2,2","OK");  //短信来了直接读取
 
@@ -108,7 +108,92 @@ int main( void )
   
   while(1){
     
-    if(debug == 1){         //调节SIM模块
+    if(debug == 0){
+      if(SCI_getf == 1){   
+          while(SCI_flag);
+          SCI_send(SCI_data);
+          SCI_send("\n");
+          
+          if(-1 != str_include(SCI_data,"chack")){
+              SCI_send("SIM_IP:");
+              SCI_send_IP(SIM_IP,SIM_PORT);  
+              SCI_send("WIFI_IP:");
+              SCI_send_IP(WIFI_IP,WIFI_PORT); 
+              SCI_send("AP name:");
+              SCI_send(APname);
+              SCI_send("\nAP key:");
+              SCI_send(APkey);
+              SCI_send("\n");
+          }
+          else if(getAP(SCI_data, "AP:",APname, APkey)){
+            SCI_send("AP name:");
+            SCI_send(APname);
+            SCI_send("\nAP key:");
+            SCI_send(APkey);
+            SCI_send("\n");
+          }
+          else if(getIP(SCI_data,"SIM IP:",SIM_IP, &SIM_PORT)){
+            SCI_send("SIM_IP:");
+            SCI_send_IP(SIM_IP,SIM_PORT);            
+          }
+          else if(getIP(SCI_data,"WIFI IP:",WIFI_IP, &WIFI_PORT)){
+            SCI_send("WIFI_IP:");
+            SCI_send_IP(WIFI_IP,WIFI_PORT);  
+          }
+          else if(-1 != str_include(SCI_data,"sim debug")){
+           debug = 1;
+           SCI_send("sim ok\n");
+          }else if(-1 != str_include(SCI_data,"wifi debug")){
+            debug = 0;
+            SCI_send("wifi ok\n");
+         }
+         else SCI_send("command error\n");
+          SCI_getf = 0;
+       }
+      
+     
+     if(time == 1)
+     {    time = 0;
+          P4OUT |= BIT7; 
+          SIM_ERR = SIM_command( "CIPSTATUS","CONNECT");  //检测SIM连接状况
+       
+      // if( wifi_TCPtest())    //wifi连接，优先用wifi发送
+          {      //wifi模块连接中
+             
+             wifi_send("W温度");       //发送温度和序号
+             wifi_send_num(cnt++); 
+             wifi_send(": ");
+             wifi_send_float(tem);
+             wifi_send("\n");
+             
+            if(0 == SIM_ERR) wifi_send("SIM ERROR\n");  //如果SIM卡连接有问题，发送错误报告
+         }
+      // else
+        if(0 == SIM_ERR){
+          if(SIM_DelayRecom("PDP DEACT"))SIM_command("CIICR","OK");
+          SIM_command("CIPCLOSE","CLOSED");
+          Delay_ms(10);     
+          SIM800_Getip(SIM_IP,SIM_PORT);                   //如果没连接上，写入IP地址重新连接
+                               //等待连接
+          
+         }
+         else
+         {                        //wifi未连接，改为gprs发送
+              GPRS_Start();              //GPRS进入发送模式
+         
+             GPRS_Send("S温度");         //发送温度
+             GPRS_SendNum(cnt++);
+             GPRS_Send("： ");
+             GPRS_Send_float(tem);
+             GPRS_Send("\n");
+             GPRS_Send("\n----wifi断开-----\n");   //发送错误报告
+             GPRS_SendEnd();            //发送数据
+         
+        }   
+        P4OUT &= ~BIT7;   //关闭灯 
+      }
+    
+    }else if(debug == 1){         //调节SIM模块
        if(SCI_getf == 1){   
           while(SCI_flag);
           SCI_send(SCI_data);
@@ -138,64 +223,10 @@ int main( void )
        }      
    }
    else{ 
-     if(SCI_getf == 1){   
-          while(SCI_flag);
-          SCI_send(SCI_data);
-          if(-1 != str_include(SCI_data,"sim debug")){
-           debug = 1;
-           SCI_send("sim ok\n");
-          }else if(-1 != str_include(SCI_data,"wifi debug")){
-            debug = 0;
-            SCI_send("wifi ok\n");
-          }
-       
-          SCI_getf = 0;
-       }
-      
-     
-     if(time == 1)
-       {   time = 0;
-          P4OUT |= BIT7; 
-          SIM_ERR = SIM_command( "CIPSTATUS","CONNECT");  //检测SIM连接状况
-       
-      // if( wifi_TCPtest())    //wifi连接，优先用wifi发送
-          {      //wifi模块连接中
-             
-             wifi_send("W温度");       //发送温度和序号
-             wifi_send_num(cnt++); 
-             wifi_send(": ");
-             wifi_send_float(tem);
-             wifi_send("\n");
-             
-            if(0 == SIM_ERR) wifi_send("SIM ERROR\n");  //如果SIM卡连接有问题，发送错误报告
-         }
-      // else
-        if(0 == SIM_ERR){
-          if(SIM_DelayRecom("PDP DEACT"))SIM_command("CIICR","OK");
-          SIM_command("CIPCLOSE","CLOSED");
-          Delay_ms(10);     
-          SIM800_Getip(IP,PORT);                   //如果没连接上，写入IP地址重新连接
-                               //等待连接
-          
-         }
-         else
-         {                        //wifi未连接，改为gprs发送
-              GPRS_Start();              //GPRS进入发送模式
-         
-             GPRS_Send("S温度");         //发送温度
-             GPRS_SendNum(cnt++);
-             GPRS_Send("： ");
-             GPRS_Send_float(tem);
-             GPRS_Send("\n");
-             GPRS_Send("\n----wifi断开-----\n");   //发送错误报告
-             GPRS_SendEnd();            //发送数据
-         
-       }   
-       P4OUT &= ~BIT7;   //关闭灯 
+       debug = 0;
        //__bis_SR_register(LPM4_bits);             // Enter LPM3
-    
-      }
     }
+
     
   }
   

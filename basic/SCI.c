@@ -126,6 +126,22 @@ void SCI_send_float(float f2)
   SCI_send_num(num);
 }
 
+
+void SCI_send_IP(unsigned char *ip ,unsigned int port){
+     
+     SCI_send_num((unsigned int)ip[0]);
+     SCI_send(",");
+     SCI_send_num((unsigned int)ip[1]);
+     SCI_send(",");
+     SCI_send_num((unsigned int)ip[2]);
+     SCI_send(",");
+     SCI_send_num((unsigned int)ip[3]);
+     SCI_send(":");
+     SCI_send_num((unsigned int)port);
+     SCI_send("\n");
+  
+}
+
 /***************************************************************************
     中断接收函数
     输出：event_SCI  接收标志位的最低位置位

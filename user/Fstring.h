@@ -43,4 +43,6 @@ extern char getIP(char * str, const char* command,unsigned char *ip, unsigned in
 
 
 extern char getphone(char *str ,char *phone,char *command);
+
+extern char getAP(char * str, const char* command,char *name,char *key);
 #endif
