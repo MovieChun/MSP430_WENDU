@@ -36,25 +36,24 @@ wifi模块备忘录：
     返回：错误类型  0  没有错误
                     1  返回不符
                     2  没有返回
+
+这个初始化有问题
 ******************************************************************/
 char  wifi_start(void){
       char error = 2;
       int length = 0;
-     
-      UART2_send("+++");    //发送"+++"和"a"进入命令模式 
       wifi_getf = 0;
-      UART2_delay(10);
+      
+      UART2_send("+++");    //发送"+++"和"a"进入命令模式 
+      UART2_delay(50);
       while(uart2_flag);
-     
+      
       UART2_send("a");       
-      UART2_delay(10);
+      UART2_delay(50);
       while(uart2_flag);
       
       if(1 == wifi_getf){
             error = 1;           //收到信号但不是OK 说明命令指令错误
-            //SCI_send("\n--------");
-            //SCI_send(wifi_data);
-            //SCI_send("\n");
             length = str_include(wifi_data,"OK");
             if( -1 != length){              
                 error = 0;      //能收到OK 说明状态返回不正确
@@ -86,12 +85,11 @@ char  wifi_end(char mode){
       if(mode == 0)UART2_send("AT+ENTM\n");    //退出命令模式
       else UART2_send("AT+Z\n");    //退出命令模式
       wifi_getf = 0;
-      UART2_delay(10);
+      UART2_delay(50);
       while(uart2_flag);
       
       if(1 == wifi_getf){
-            error = 1;           //收到信号但不是OK 说明命令指令错误
-            
+            error = 1;           //收到信号但不是OK 说明命令指令错误            
             length = str_include(wifi_data,"OK");
             if( -1 != length){
                  error = 0;      //能收到OK 说明状态返回不正确
@@ -135,10 +133,6 @@ char  wifi_command(char *command , char* data,char mode){
       
       if(1 == wifi_getf){
             error = 1;           //收到信号但不是OK 说明命令指令错误
-            //SCI_send("\n--------");
-            //SCI_send(wifi_data);
-            //SCI_send("---------\n");
-            
             if(mode == 1) length = str_include(wifi_data,"OK");
             else length = str_include(wifi_data,data);
             if( -1 != length){
@@ -182,8 +176,8 @@ char wifi_IP(unsigned char *ip,unsigned int port){
      UART2_send("\n");
 
      wifi_getf = 0;
-     UART2_delay(10);  //最长等待10ms
-     while(uart2_flag);      //等待数据接收完成，若无返回则10ms后退出   
+     UART2_delay(50);  //最长等待50ms
+     while(uart2_flag);      //等待数据接收完成，若无返回则50ms后退出   
      
      if(1 == wifi_getf){
         error = 1;
@@ -220,7 +214,7 @@ char wifi_AP(char *name,char *password){
      UART2_send(password);
      UART2_send("\n");
      wifi_getf = 0;
-     UART2_delay(10);         //最长等待10ms
+     UART2_delay(50);         //最长等待10ms
      while(uart2_flag);       //等待数据接收完成，若无返回则10ms后退出
      
      if(1 == wifi_getf){
@@ -249,7 +243,7 @@ char SearchAP(char* name){
      
      UART2_send("AT+WSCAN\n"); //先搜索附近的路由器
      wifi_getf = 0;
-     UART2_delay(10);          //最长等待10ms
+     UART2_delay(50);          //最长等待10ms
      while(uart2_flag);        //等待数据接收完成，若无返回则10ms后退出
      UART2_delay(100);         //最长等待100ms，搜素的时间比较长
      while(uart2_flag);      
@@ -301,12 +295,12 @@ __interrupt void USCI_A1_ISR(void)
         wifi_getf = 1;
         if(uart2_num < REMAX - 1){
              uart2_error = 0;
-             UART2_delay(10);                                         //10ms内没接收到新数据视为通信结束
+                                                   //10ms内没接收到新数据视为通信结束
         }else {
             uart2_num = REMAX - 2;
             uart2_error = 1;
-       }
-   
+        }
+        UART2_delay(5);   
       break                                                        ;
   case 4:break                                                     ;  // Vector 4 - TXIFG
   default: break                                                   ;  

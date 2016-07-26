@@ -8,7 +8,7 @@
 #define _flash_h_
 
 #define SAVE_ADD  0XE200    //存储地址
-
+//#define SAVE_ADD  0Xf200    //存储地址
 extern void FERASE(unsigned int address);  //擦除地址
 //读取flash中的数据  参数：储存首地址  存入数组  存入长度
 extern void Flash_read(unsigned int address, unsigned char* data,unsigned int length);

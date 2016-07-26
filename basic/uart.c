@@ -1,7 +1,7 @@
 /**********************************************************************
       文件名：uart.c
       说明  ：串口驱动 ， 用于SIM模块
-              波特率：9600
+              波特率：115200
               中断接收
               引脚 ：TXD -> P10.4 -> Pin80
                      RXD -> P10.5 -> Pin81
@@ -37,7 +37,7 @@ void UART_init(void)
   UART_PORT_SEL    |= UART_TXD + UART_RXD                          ; // 选择引脚功能
   UART_PORT_DIR    |= UART_TXD                                     ; // 选择引脚功能
   UCA3CTL1        = UCSWRST                                        ; // 状态机复位
-  UCA3CTL1       |= UCSSEL_2                                       ; // CLK = ACLK  32K
+  UCA3CTL1       |= UCSSEL_2                                       ; // CLK = smclk  32K
   //UCA3CTL1       |= UCSSEL_1;           
   UCA3BR0         = 8                                              ; //  
   //UCA3BR0         = 3 ;   
