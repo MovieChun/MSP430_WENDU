@@ -44,25 +44,47 @@ char  wifi_start(void){
       int length = 0;
       wifi_getf = 0;
       
-      UART2_send("+++");    //发送"+++"和"a"进入命令模式 
+      Delay_ms(5); 
+      UART2_send_char('\r');    //唤醒模块，但又不发送数据
+      Delay_ms(500);          //等待唤醒
+      UART2_send("+++");     //发送"+++"和"a"进入命令模式 
       UART2_delay(50);
-      while(uart2_flag);
-      
-      UART2_send("a");       
-      UART2_delay(50);
-      while(uart2_flag);
+      while(uart2_flag)__bis_SR_register(LPM4_bits);
       
       if(1 == wifi_getf){
-            error = 1;           //收到信号但不是OK 说明命令指令错误
-            length = str_include(wifi_data,"OK");
-            if( -1 != length){              
-                error = 0;      //能收到OK 说明状态返回不正确
+           length = str_include(wifi_data,"a");   //有返回但不是a说明已经进入命令模式
+           if( -1 != length){                 
+               UART2_send("a"); 
             }
-      }      
+           else  UART2_send_char('\n');     //清空这个命令
+         
+      } else {
+              UART2_send_char('\n');           //清空这个命令
+        
+              /*Delay_ms(20);         //等待唤醒
+              UART2_send("+++");    //发送"+++"和"a"进入命令模式 
+              UART2_delay(50);
+              while(uart2_flag)__bis_SR_register(LPM4_bits);
+              UART2_send("a");*/ 
+            }     
+      
+           
+      UART2_delay(50);
+      while(uart2_flag)__bis_SR_register(LPM4_bits);
+      
+      if(1 == wifi_getf){        //有回应说明就是命令模式
+            error = 0;          
+           /* length = str_include(wifi_data,"OK");
+            if( -1 != length){              
+                error = 0;      //能收到OK 说明状态返回正确
+            }*/
+      }
+      else error = 1;       
       wifi_getf = 0;      
 
 
 #ifdef wifi_DEBUG
+        SCI_send("+++a");
         SCI_send(wifi_data);
 #endif
       
@@ -86,7 +108,7 @@ char  wifi_end(char mode){
       else UART2_send("AT+Z\n");    //退出命令模式
       wifi_getf = 0;
       UART2_delay(50);
-      while(uart2_flag);
+      while(uart2_flag)__bis_SR_register(LPM4_bits);
       
       if(1 == wifi_getf){
             error = 1;           //收到信号但不是OK 说明命令指令错误            
@@ -98,6 +120,8 @@ char  wifi_end(char mode){
       wifi_getf = 0;      
 
 #ifdef wifi_DEBUG
+        if(mode == 0)SCI_send("AT+ENTM\n");    //退出命令模式
+        else SCI_send("AT+Z\n");    //退出命令模式
         SCI_send(wifi_data);
 #endif
       
@@ -118,7 +142,8 @@ char  wifi_end(char mode){
 char  wifi_command(char *command , char* data,char mode){
       char error = 2;
       int length = 0;
-      
+
+      Delay_ms(2);
       UART2_send("AT+");
       UART2_send(command);
       if(mode == 1){   //有数据，则写入指令，否则查看状态
@@ -129,7 +154,7 @@ char  wifi_command(char *command , char* data,char mode){
       
       wifi_getf = 0;
       UART2_delay(100);
-      while(uart2_flag);
+      while(uart2_flag)__bis_SR_register(LPM4_bits);
       
       if(1 == wifi_getf){
             error = 1;           //收到信号但不是OK 说明命令指令错误
@@ -142,6 +167,13 @@ char  wifi_command(char *command , char* data,char mode){
 
 
 #ifdef wifi_DEBUG
+        SCI_send("AT+");
+         SCI_send(command);
+      if(mode == 1){   //有数据，则写入指令，否则查看状态
+          SCI_send("=");
+          SCI_send(data);
+      }
+      SCI_send("\n");
         SCI_send(wifi_data);
 #endif
       
@@ -160,7 +192,8 @@ char  wifi_command(char *command , char* data,char mode){
 ******************************************************************/
 char wifi_IP(unsigned char *ip,unsigned int port){
      char error = 2;
-     
+
+     Delay_ms(2);
      UART2_send("AT+SOCKA=");
      UART2_send("TCPC,");
      
@@ -176,8 +209,8 @@ char wifi_IP(unsigned char *ip,unsigned int port){
      UART2_send("\n");
 
      wifi_getf = 0;
-     UART2_delay(50);  //最长等待50ms
-     while(uart2_flag);      //等待数据接收完成，若无返回则50ms后退出   
+     UART2_delay(100);  //最长等待50ms
+     while(uart2_flag)__bis_SR_register(LPM4_bits);      //等待数据接收完成，若无返回则50ms后退出   
      
      if(1 == wifi_getf){
         error = 1;
@@ -188,6 +221,19 @@ char wifi_IP(unsigned char *ip,unsigned int port){
      
 
 #ifdef wifi_DEBUG
+        SCI_send("AT+SOCKA=");
+     SCI_send("TCPC,");
+     
+     SCI_send_num(ip[0]);
+     SCI_send(".");
+     SCI_send_num(ip[1]);
+     SCI_send(".");
+     SCI_send_num(ip[2]);
+     SCI_send(".");
+     SCI_send_num(ip[3]);
+     SCI_send(",");
+     SCI_send_num(port);
+     SCI_send("\n");
         SCI_send(wifi_data);
 #endif
            
@@ -207,7 +253,8 @@ char wifi_IP(unsigned char *ip,unsigned int port){
 ******************************************************************/
 char wifi_AP(char *name,char *password){
      char error = 2;
-     
+
+     Delay_ms(2);
      UART2_send("AT+WSTA=");   //写入名字和密码
      UART2_send(name);
      UART2_send(",");
@@ -215,7 +262,7 @@ char wifi_AP(char *name,char *password){
      UART2_send("\n");
      wifi_getf = 0;
      UART2_delay(50);         //最长等待10ms
-     while(uart2_flag);       //等待数据接收完成，若无返回则10ms后退出
+     while(uart2_flag)__bis_SR_register(LPM4_bits);       //等待数据接收完成，若无返回则10ms后退出
      
      if(1 == wifi_getf){
         error = 1;
@@ -244,9 +291,9 @@ char SearchAP(char* name){
      UART2_send("AT+WSCAN\n"); //先搜索附近的路由器
      wifi_getf = 0;
      UART2_delay(50);          //最长等待10ms
-     while(uart2_flag);        //等待数据接收完成，若无返回则10ms后退出
+     while(uart2_flag)__bis_SR_register(LPM4_bits);        //等待数据接收完成，若无返回则10ms后退出
      UART2_delay(100);         //最长等待100ms，搜素的时间比较长
-     while(uart2_flag);      
+     while(uart2_flag)__bis_SR_register(LPM4_bits);      
      if(1 == wifi_getf){
         error = 1;
         if(-1 != str_include(wifi_data,name))error = 0;   //修改ip成功
@@ -264,21 +311,40 @@ char SearchAP(char* name){
     函数名：wifi_TCPtest()
     功能：查看链接状态
     参数：无
-    返回：错误类型  0  TCP未连接
-                    1  TCP连接中
-                    2  没有返回
+    返回： 0  TCP未连接
+           1  TCP连接中
+ 
 ******************************************************************/
 char wifi_TCPtest(void){
   char error;
-  wifi_start();                   //进入命令模式
-  error = wifi_command("SOCKLKA" ,"DISCONNECTED",0); //只能检测无法连接的情况
+  if(wifi_start() == 0){                   //进入命令模式
+     error = wifi_command("SOCKLKA" ,"DISCONNECTED",0); //只能检测无法连接的情况
                                   //DISCONNECTED 包含 CONNECTED 
-  wifi_end(0);                    //返回透传模式
-  return error;                   //0 未连接，1 已连接
+     wifi_end(0);     
+  
+  }//返回透传模式
+  if(error == 1)return 1;
+  else return 0;
   
 }
 
-
+/******************************************************************
+    函数名：wifi_sleep()
+    功能：进入休眠模式
+    参数：无
+    返回： 
+******************************************************************/
+char wifi_sleep(void){
+  char error;
+  
+  wifi_start();  
+  Delay_ms(10);
+  error = wifi_command("MSLP" ,"OK",0); //直接进入休眠
+                               
+  if(error == 1)return 1;
+  else return 0;
+  
+}
 
 //-------------------中断接收-------------------------//
 //---------------接收SIM返回的数据--------------------//
@@ -300,7 +366,7 @@ __interrupt void USCI_A1_ISR(void)
             uart2_num = REMAX - 2;
             uart2_error = 1;
         }
-        UART2_delay(5);   
+        UART2_delay(10);   
       break                                                        ;
   case 4:break                                                     ;  // Vector 4 - TXIFG
   default: break                                                   ;  

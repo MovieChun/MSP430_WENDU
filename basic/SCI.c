@@ -171,6 +171,7 @@ __interrupt void USCI_A2_ISR(void)
             SCI_num = SCI_MAX - 2;
             SCI_error = 1;
        }
+       __bic_SR_register_on_exit(LPM0_bits);   // Exit active CPU
       break                                                      ;
   case 4:break                                                     ;  // Vector 4 - TXIFG
   default: break                                                   ;  

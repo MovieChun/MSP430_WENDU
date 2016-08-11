@@ -37,7 +37,7 @@ void Init_CLK(void)
   UCSCTL6   |= XCAP_3                                     ; // 设置内部负载电容
   UCSCTL3   |= SELREF_2                                   ; // FLLref = REFO
   UCSCTL4   |= SELA_0                                     ; // ACLK=XT1,SMCLK=DCO,MCLK=DCO
-  //UCSCTL5   |= DIVA2                                      ;  //ACLK不分频 32k
+  //UCSCTL5   |= DIVA2                                    ;  //ACLK不分频 32k
   do
   {
     UCSCTL7 &= ~(XT2OFFG + XT1LFOFFG + XT1HFOFFG + DCOFFG); // 清除 XT2,XT1,DCO 错误标志                                                          
@@ -88,7 +88,7 @@ void Init_Timer0_A5(void)
 {  
   TA0CTL   = TASSEL0 + ID1 + ID0 + TACLR                   ; // 复位Timer0_A5, 分频系数设置为8
                                                           // 计数器清0
-                                                          // 计数时钟设为ACLK                                                          ;
+                                                          // 计数时钟设为ACLK  32K                                                        ;
   TA0CCR0  =  TIME                                         ; 
   TA0CCTL0 = 0                                               // 初始化捕获控制
            | (1 << 4)                                      ; // 使能比较中断
@@ -171,6 +171,7 @@ __interrupt void Timer1_A0 (void)
   else SCI_flag = 0;   //延时标志复位
   
   if((delay_ms + uart2_flag + uart1_flag + SCI_flag) == 0){//不需要延时功能
+      __bic_SR_register_on_exit(LPM0_bits);   // Exit active CPU
       TA1CTL  &= ~MC0;  //关闭定时器
   } 
 }

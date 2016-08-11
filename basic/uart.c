@@ -31,13 +31,13 @@
       使用16位校验能提高传输的正确率
       
 **********************************************************************/
-
+//SIM模块只接受单片机115200波特率
 void UART_init(void)
 { 
   UART_PORT_SEL    |= UART_TXD + UART_RXD                          ; // 选择引脚功能
   UART_PORT_DIR    |= UART_TXD                                     ; // 选择引脚功能
   UCA3CTL1        = UCSWRST                                        ; // 状态机复位
-  UCA3CTL1       |= UCSSEL_2                                       ; // CLK = smclk  32K
+  UCA3CTL1       |= UCSSEL_2                                       ; // CLK = smclk 
   //UCA3CTL1       |= UCSSEL_1;           
   UCA3BR0         = 8                                              ; //  
   //UCA3BR0         = 3 ;   

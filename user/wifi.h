@@ -4,7 +4,7 @@
 #define _wifi_h_
 
 //#define wifi_DEBUG               //开启调戏模式
-#define REMAX        512          //接收区容量
+#define REMAX        128          //接收区容量
 
 #define wifi_send        UART2_send        //发送字符串
 #define wifi_send_num    UART2_send_num    //发送无符号整型数
@@ -29,8 +29,8 @@ char  SearchAP(char* name);
 extern int  uart2_num;        //串口接收数量
 extern char uart2_error;      //数据溢出最大错误
 
-extern char wifi_getf;       //SIM模块接收到数据标志
-extern char wifi_data[REMAX];//SIM模块数据接收数组
-
+extern char wifi_getf;       //WIFI模块接收到数据标志
+extern char wifi_data[REMAX];//WIFI模块数据接收数组
+extern char wifi_sleep(void);
 
 #endif

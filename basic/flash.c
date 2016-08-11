@@ -41,7 +41,6 @@ void Flash_write(unsigned int address, unsigned char* data,unsigned int length)
 {
   unsigned int   i;
   unsigned char* Wr_Addr;
-  //FERASE(address);  //存入前把第一个清零，有益于存储稳定
   Wr_Addr =(unsigned char*)address;  
   FCTL1   = FWKEY + WRT; // Set WRT bit for write operation
   FCTL3   = FWKEY;

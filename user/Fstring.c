@@ -139,6 +139,23 @@ char getIP(char * str, const char* command,unsigned char *ip, unsigned int * por
 }
 
 
+char getUI(char * str, const char* command,unsigned int * num){
+	char ok = 0;
+	int a = 0;
+	unsigned int n = 0;
+	a = str_include(str, command);                        //查看帧头
+	if (a != -1){                                       //接收到修改ip指令
+	       str += a;
+	       while (*str >= '0' && *str <= '9'){
+		      n = n * 10 + *str - '0';
+		      str++;
+		}
+		*num = n;                                 //更改端口号
+	}
+	return ok;
+}
+
+
 /***************************************************************************
    函数名：  char getAP(char * str, const char* command,unsigned char *name, unsigned char *key)
    说明  ：  获取AP名和密码

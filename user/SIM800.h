@@ -3,7 +3,7 @@
 #define _SIM800_H_
 
 
-#define RECMAX  512   //接收区容量
+#define RECMAX  128   //接收区容量
 #define SIM_DEBUG   //开启调戏模式
 
 extern int  uart_num;      //串口接收数量
