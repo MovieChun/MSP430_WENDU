@@ -22,7 +22,13 @@ ShowTimeLog=1
 ShowTimeSum=1
 SumSortOrder=0
 [Breakpoints2]
-Count=0
+Bp0=_ 1 "STD_CODE2" "{$PROJ_DIR$\user\WIFI_INIT.c}.313.1" 0 0 1 "" 0 ""
+Bp1=_ 1 "STD_CODE2" "{$PROJ_DIR$\user\WIFI_RUN.c}.54.1" 0 0 1 "" 0 ""
+Bp2=_ 1 "STD_CODE2" "{$PROJ_DIR$\user\WIFI_RUN.c}.79.1" 0 0 1 "" 0 ""
+Bp3=_ 1 "STD_CODE2" "{$PROJ_DIR$\user\PC.c}.25.1" 0 0 1 "" 0 ""
+Bp4=_ 1 "STD_CODE2" "{$PROJ_DIR$\main.c}.68.1" 0 0 1 "" 0 ""
+Bp5=_ 1 "STD_CODE2" "{$PROJ_DIR$\main.c}.78.1" 0 0 1 "" 0 ""
+Count=6
 [Interrupts]
 Enabled=1
 [MemoryMap]

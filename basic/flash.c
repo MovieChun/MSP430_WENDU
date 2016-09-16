@@ -62,7 +62,7 @@ void Flash_write(unsigned int address, unsigned char* data,unsigned int length)
 //***************************************************************************//
 void Flash_read(unsigned int address, unsigned char* data,unsigned int length)
 {
-  unsigned int   i                                        ;                    ;
+  unsigned int   i;                  
   unsigned char* Wr_Addr;
   Wr_Addr =(unsigned char*)address;  
   for(i=0;i<length;i++)

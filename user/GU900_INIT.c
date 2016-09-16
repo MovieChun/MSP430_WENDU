@@ -1,6 +1,6 @@
 
 #include "msp430x54x.h"
-#include "SIM800.h"
+#include "GU900_INIT.h"
 #include "Clock.h"
 #include "uart.h"
 #include "SCI.h"

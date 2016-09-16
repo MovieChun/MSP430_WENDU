@@ -102,6 +102,7 @@ void Init_Timer0_A5(void)
 //  1MS的精确定时                                                                         //
 //***************************************************************************//
 unsigned int delay_ms = 0;   //精确延时
+unsigned int delay_slms = 0;
 unsigned int uart1_ms = 0;   //串口1的接收延时
 unsigned int uart2_ms = 0;   //串口2的接收延时
 unsigned int SCI_ms = 0;
@@ -152,6 +153,12 @@ void Delay_ms(unsigned int ms){  //1ms延时函数
    while(delay_ms);
 }
 
+void Delay_sleepms(unsigned int ms){  //1ms延时函数
+   delay_slms = ms;
+   TA1CTL  |= MC0;       // 启动定时器
+   while(delay_slms)__bis_SR_register(LPM4_bits);
+}
+
 
 
 #include "uart.h"
@@ -160,6 +167,7 @@ void Delay_ms(unsigned int ms){  //1ms延时函数
 __interrupt void Timer1_A0 (void)
 {
   if(delay_ms > 0)delay_ms--;
+  if(delay_slms > 0)delay_slms--;
   
   if(uart1_ms > 0)uart1_ms--;
   else uart1_flag = 0;   //延时标志复位
@@ -170,7 +178,7 @@ __interrupt void Timer1_A0 (void)
   if(SCI_ms > 0)SCI_ms--;
   else SCI_flag = 0;   //延时标志复位
   
-  if((delay_ms + uart2_flag + uart1_flag + SCI_flag) == 0){//不需要延时功能
+  if((delay_ms | uart2_flag | uart1_flag | SCI_flag | delay_slms) == 0){//不需要延时功能
       __bic_SR_register_on_exit(LPM0_bits);   // Exit active CPU
       TA1CTL  &= ~MC0;  //关闭定时器
   } 

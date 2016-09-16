@@ -33,5 +33,5 @@ extern char* UART1_delay(unsigned int ms);
 extern char* UART2_delay(unsigned int ms);
 char* SCI_delay(unsigned int ms);
 extern void  Delay_ms(unsigned int ms);
-
+extern void Delay_sleepms(unsigned int ms);
 #endif

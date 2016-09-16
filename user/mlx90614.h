@@ -1,6 +1,8 @@
 #ifndef _mlx90614_h_
 #define _mlx90614_h_
 
+#include "Clock.h"
+
 //-------------EEPROM---------------------
 #define  TOMAX     0X20    //温度最大值 读写
 #define  TOMIN     0X21    //温度最小值 读写
@@ -22,5 +24,5 @@ extern char MLX_Read(unsigned char command ,unsigned int *data);
 extern char MLX_ReadT(unsigned char command ,float *Tdata);
 
 extern float MLX_RT(void); //外部温度读取
-
+extern float TEM_AVE(void);
 #endif

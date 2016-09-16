@@ -1,6 +1,6 @@
 
-#ifndef _SIM800_H_
-#define _SIM800_H_
+#ifndef _GU900_INIT_H_
+#define _GU900_INIT_H_
 
 
 #define RECMAX  128   //接收区容量
@@ -20,7 +20,6 @@ extern char SIM_data[RECMAX];  //SIM模块数据接收数组
 
 
 
-extern char SIM800_test(void);                       //测试是否连接上SIM
 extern char SIM800_init(void);                       //SIM使能
 extern char SIM800_Getip(unsigned char *ip,unsigned port );   //写入IP和端口号
 extern char SIM_DelayRecom(const char *recomm); //处理接收信息

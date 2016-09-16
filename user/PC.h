@@ -1,5 +1,5 @@
-#ifndef _main_h_
-#define _main_h_
+#ifndef _PC_h_
+#define _PC_h_
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -25,5 +25,7 @@
 
 void READ(void);
 void SAVE(void);
+
+void PC_control(void);
 
 #endif

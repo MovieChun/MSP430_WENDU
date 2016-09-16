@@ -98,3 +98,36 @@ float MLX_RT(void){
     Tdata =((float)data * 2 - 27315)/100;  
     return Tdata;
 }
+
+
+float TEM_AVE(void){
+      
+  float tem[6];
+  tem[0] = MLX_RT();             //采集5次滤波，同时延时20ms
+  Delay_sleepms(5);
+  tem[1] = MLX_RT();
+  Delay_sleepms(5);
+  tem[2] = MLX_RT();
+  Delay_sleepms(5);
+  tem[3] = MLX_RT();        
+  Delay_sleepms(5);  
+  tem[4] = MLX_RT();
+                
+  for(int i = 0; i < 5 ;i++){            
+    if(tem[0] < tem[i]){        //找出最大值放到tem[0]
+              
+      tem[5] = tem[0];
+      tem[0] = tem[i];      
+      tem[i] = tem[5];      
+    }
+ 
+    if(tem[1] > tem[i]){        //找出最小值放到tem[1]    
+      tem[5] = tem[1];      
+      tem[1] = tem[i];      
+      tem[i] = tem[5];      
+    }    
+  }
+  tem[0] = (tem[2] + tem[3] + tem[4])/3;   //去除最大最小值求平均 
+    
+      return tem[0];
+}

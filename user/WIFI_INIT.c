@@ -1,11 +1,11 @@
 
-#include "msp430x54x.h"
-#include "Clock.h"
-#include "uart2.h"
-#include "SCI.h"
-#include "Fstring.h"
-#include "wifi.h"
 
+#include "WIFI_INIT.h"
+
+
+#define wifi_send        UART2_send        //发送字符串
+#define wifi_send_num    UART2_send_num    //发送无符号整型数
+#define wifi_send_float  UART2_send_float  //发送精确到小数点后两位的浮点数
 
 int  uart2_num = 0;      //串口接收数量
 char uart2_error = 0;    //数据溢出最大错误
@@ -44,12 +44,16 @@ char  wifi_start(void){
       int length = 0;
       wifi_getf = 0;
       
-      Delay_ms(5); 
-      UART2_send_char('\r');    //唤醒模块，但又不发送数据
-      Delay_ms(500);          //等待唤醒
+      //Delay_sleepms(5); 
+      //UART2_send_char('\r');    //唤醒模块，但又不发送数据
+      WIFI_TX_DOWN;
+      Delay_sleepms(50);
+      WIFI_TX_ON;
+      Delay_sleepms(100);          //等待唤醒
+      
       UART2_send("+++");     //发送"+++"和"a"进入命令模式 
       UART2_delay(50);
-      while(uart2_flag)__bis_SR_register(LPM4_bits);
+      while(uart2_flag);
       
       if(1 == wifi_getf){
            length = str_include(wifi_data,"a");   //有返回但不是a说明已经进入命令模式
@@ -60,31 +64,20 @@ char  wifi_start(void){
          
       } else {
               UART2_send_char('\n');           //清空这个命令
-        
-              /*Delay_ms(20);         //等待唤醒
-              UART2_send("+++");    //发送"+++"和"a"进入命令模式 
-              UART2_delay(50);
-              while(uart2_flag)__bis_SR_register(LPM4_bits);
-              UART2_send("a");*/ 
             }     
       
            
       UART2_delay(50);
-      while(uart2_flag)__bis_SR_register(LPM4_bits);
+      while(uart2_flag);
       
       if(1 == wifi_getf){        //有回应说明就是命令模式
             error = 0;          
-           /* length = str_include(wifi_data,"OK");
-            if( -1 != length){              
-                error = 0;      //能收到OK 说明状态返回正确
-            }*/
       }
       else error = 1;       
       wifi_getf = 0;      
 
 
 #ifdef wifi_DEBUG
-        SCI_send("+++a");
         SCI_send(wifi_data);
 #endif
       
@@ -108,7 +101,7 @@ char  wifi_end(char mode){
       else UART2_send("AT+Z\n");    //退出命令模式
       wifi_getf = 0;
       UART2_delay(50);
-      while(uart2_flag)__bis_SR_register(LPM4_bits);
+      while(uart2_flag);
       
       if(1 == wifi_getf){
             error = 1;           //收到信号但不是OK 说明命令指令错误            
@@ -154,7 +147,7 @@ char  wifi_command(char *command , char* data,char mode){
       
       wifi_getf = 0;
       UART2_delay(100);
-      while(uart2_flag)__bis_SR_register(LPM4_bits);
+      while(uart2_flag);
       
       if(1 == wifi_getf){
             error = 1;           //收到信号但不是OK 说明命令指令错误
@@ -193,7 +186,7 @@ char  wifi_command(char *command , char* data,char mode){
 char wifi_IP(unsigned char *ip,unsigned int port){
      char error = 2;
 
-     Delay_ms(2);
+     Delay_sleepms(2);
      UART2_send("AT+SOCKA=");
      UART2_send("TCPC,");
      
@@ -210,7 +203,7 @@ char wifi_IP(unsigned char *ip,unsigned int port){
 
      wifi_getf = 0;
      UART2_delay(100);  //最长等待50ms
-     while(uart2_flag)__bis_SR_register(LPM4_bits);      //等待数据接收完成，若无返回则50ms后退出   
+     while(uart2_flag);      //等待数据接收完成，若无返回则50ms后退出   
      
      if(1 == wifi_getf){
         error = 1;
@@ -221,19 +214,6 @@ char wifi_IP(unsigned char *ip,unsigned int port){
      
 
 #ifdef wifi_DEBUG
-        SCI_send("AT+SOCKA=");
-     SCI_send("TCPC,");
-     
-     SCI_send_num(ip[0]);
-     SCI_send(".");
-     SCI_send_num(ip[1]);
-     SCI_send(".");
-     SCI_send_num(ip[2]);
-     SCI_send(".");
-     SCI_send_num(ip[3]);
-     SCI_send(",");
-     SCI_send_num(port);
-     SCI_send("\n");
         SCI_send(wifi_data);
 #endif
            
@@ -262,7 +242,7 @@ char wifi_AP(char *name,char *password){
      UART2_send("\n");
      wifi_getf = 0;
      UART2_delay(50);         //最长等待10ms
-     while(uart2_flag)__bis_SR_register(LPM4_bits);       //等待数据接收完成，若无返回则10ms后退出
+     while(uart2_flag);       //等待数据接收完成，若无返回则10ms后退出
      
      if(1 == wifi_getf){
         error = 1;
@@ -276,36 +256,6 @@ char wifi_AP(char *name,char *password){
                 
      return error; 
 }
-
-/******************************************************************
-    函数名：SearchAP(char* name)
-    功能：写入路由器信息
-    参数：name ——wifi名字
-    返回：错误类型  0  ip写入
-                    1  没搜索到路由器
-                    2  没有返回
-******************************************************************/
-char SearchAP(char* name){
-     char error = 2;
-     
-     UART2_send("AT+WSCAN\n"); //先搜索附近的路由器
-     wifi_getf = 0;
-     UART2_delay(50);          //最长等待10ms
-     while(uart2_flag)__bis_SR_register(LPM4_bits);        //等待数据接收完成，若无返回则10ms后退出
-     UART2_delay(100);         //最长等待100ms，搜素的时间比较长
-     while(uart2_flag)__bis_SR_register(LPM4_bits);      
-     if(1 == wifi_getf){
-        error = 1;
-        if(-1 != str_include(wifi_data,name))error = 0;   //修改ip成功
-     }
-     wifi_getf = 0;
-     
-#ifdef wifi_DEBUG
-        SCI_send(wifi_data);
-#endif
-    return error;
-}
-
 
 /******************************************************************
     函数名：wifi_TCPtest()
@@ -334,7 +284,7 @@ char wifi_TCPtest(void){
     参数：无
     返回： 
 ******************************************************************/
-char wifi_sleep(void){
+/*char wifi_sleep(void){
   char error;
   
   wifi_start();  
@@ -344,7 +294,7 @@ char wifi_sleep(void){
   if(error == 1)return 1;
   else return 0;
   
-}
+}*/
 
 //-------------------中断接收-------------------------//
 //---------------接收SIM返回的数据--------------------//
